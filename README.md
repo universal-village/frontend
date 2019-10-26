@@ -1,4 +1,6 @@
 # UV Universal Frontend
+[![Build Status](https://travis-ci.org/universal-village/frontend.svg?branch=dev)](https://travis-ci.org/universal-village/frontend)
+[![Preview the Site](https://img.shields.io/badge/now.sh-Preview%20the%20Site-grey?logo=zeit&labelColor=black)](https://frontend.universal-village.now.sh)
 
 ## Development Guideline
 Install project dependency and begin serve the development server:
