@@ -3,6 +3,9 @@
     "home": {
       "title": "首页",
       "description": "就是个首页"
+    },
+    "login": {
+      "title": "登录"
     }
   }
 }

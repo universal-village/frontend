@@ -1,8 +1,11 @@
 {
   "pages": {
     "home": {
-      "title": "Homepage",
+      "title": "Home",
       "description": "Just a homepage"
+    },
+    "login": {
+      "title": "Login"
     }
   }
 }

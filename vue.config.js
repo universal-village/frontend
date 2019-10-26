@@ -1,14 +1,28 @@
+const config = require("./config");
 module.exports = {
   assetsDir: '_/',
   runtimeCompiler: true,
-  lintOnSave: false,
 
   pluginOptions: {
     i18n: {
-      locale: 'en',
-      fallbackLocale: 'en',
+      locale: 'zh',
+      fallbackLocale: 'zh',
       localeDir: 'locales',
       enableInSFC: true,
     },
+  },
+  integrity: true,
+  productionSourceMap: false,
+  devServer: {
+    proxy: 'http://localhost:8080',
+  },
+  pwa: {
+    name: config.conference.name.short,
+    themeColor: '#4DBA87',
+    msTileColor: '#000000',
+    appleMobileWebAppStatusBarStyle: 'black',
+
+    // configure the workbox plugin
+    workboxPluginMode: 'GenerateSW',
   },
 };
