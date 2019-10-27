@@ -11,6 +11,12 @@
       "profile": {
         "title": "Profile"
       }
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "home": {
+        "title": "Home"
+      }
     }
   },
   "nouns": {

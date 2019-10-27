@@ -11,6 +11,12 @@
       "profile": {
         "title": "账户信息"
       }
+    },
+    "dashboard": {
+      "title": "仪表板",
+      "home": {
+        "title": "首页"
+      }
     }
   },
   "nouns": {

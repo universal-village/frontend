@@ -23,11 +23,13 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
-            <v-img :src="require('@/assets/logo.png')" />
+            <v-img
+              :src="require('@/assets/logo.png')"
+              :aspect-ratio="5.513071895"
+              height="100"
+              contain
+            />
           </v-list-item-title>
-          <v-list-item-subtitle>
-            Dashboard
-          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
@@ -39,7 +41,7 @@
       >
         <!-- root routes-->
         <div
-          v-for="route in $router.options.routes"
+          v-for="route in $router.options.routes.filter(el => !el.meta.hide)"
           :key="route.path"
         >
           <v-list-item
@@ -72,7 +74,7 @@
             </template>
 
             <v-list-item
-              v-for="child in route.children"
+              v-for="child in route.children.filter(el => !el.meta.hide)"
               :key="child.name"
               @click="$router.push({name: child.name})"
             >
@@ -109,15 +111,15 @@
       color="primary"
       app
       dark
-      prominent
-      shrink-on-scroll
-      fade-img-on-scroll
+
       src="https://picsum.photos/1920/1080?random"
     >
       <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
           gradient="to top right, rgba(78,169,94,.7), rgba(102,166,102,.7)"
+          position="top center"
+          :src="require('@/assets/background-1.jpg')"
         />
       </template>
 
@@ -126,17 +128,21 @@
       />
 
       <v-toolbar-title>
-        {{ $t($router.currentRoute.meta.i18n) }}
+        {{ $t($route.meta.i18n) }}
       </v-toolbar-title>
 
       <v-spacer />
 
       <v-btn
         icon
-        @click="dark = !dark"
+        :to="{name: 'AccountLogin'}"
       >
-        <v-icon>mdi-invert-colors</v-icon>
+        <v-icon>mdi-exit-to-app</v-icon>
       </v-btn>
+
+      <template v-slot:extension>
+        <v-breadcrumbs :items="routeBreadcrumbs" />
+      </template>
     </v-app-bar>
 
     <v-content id="content">
@@ -151,14 +157,26 @@
       drawer: null,
     }),
     computed: {
-      dark: {
-        get () {
-          return this.$store.state.settings.dark;
-        },
-        set (value) {
-          this.$store.commit('switchDark', value);
-        },
+      routeBreadcrumbs () {
+        let breadcrumbs = [];
+        for (let route of this.$route.matched) {
+          breadcrumbs.push(
+            {
+              text: this.$t(route.meta.i18n),
+              link: true,
+              exact: true,
+              to: {name: route.name},
+            }
+          );
+        }
+        return breadcrumbs;
       },
     },
   };
 </script>
+
+<style>
+  html {
+    overflow-y: visible;
+  }
+</style>
