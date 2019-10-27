@@ -1,11 +1,55 @@
 {
   "pages": {
     "home": {
-      "title": "Home",
-      "description": "Just a homepage"
+      "title": "Home"
     },
-    "login": {
-      "title": "Login"
+    "account": {
+      "title": "My Account",
+      "login": {
+        "title": "Login"
+      },
+      "profile": {
+        "title": "Profile"
+      }
+    }
+  },
+  "nouns": {
+    "partials": {
+      "required": "is required",
+      "invalid": "Invalid"
+    },
+    "form": {
+      "submit": "Submit"
+    },
+    "account": {
+      "email": "E-mail",
+      "emailRequired": "@:nouns.account.email @:nouns.partials.required",
+      "emailInvalid": "@:nouns.partials.invalid @:nouns.account.email",
+
+      "password": "Password",
+      "passwordRequired": "@:nouns.account.password @:nouns.partials.required"
+    }
+  },
+  "message": {
+    "network": {
+      "state": {
+        "loading": "Loading...",
+        "error": "Error"
+      },
+      "status": {
+        "request": "No respond from service",
+        "response": {
+          "401": "Malformed request",
+          "403": "Unauthorized",
+          "404": "Invalid endpoint",
+          "500": "Service error",
+          "502": "Service gateway error",
+          "503": "Service unavailable",
+          "504": "Service gateway timeout",
+          "default": "Unknown error"
+        },
+        "internal": "Internal error"
+      }
     }
   }
 }

@@ -1,11 +1,55 @@
 {
   "pages": {
     "home": {
-      "title": "首页",
-      "description": "就是个首页"
+      "title": "首页"
     },
-    "login": {
-      "title": "登录"
+    "account": {
+      "title": "账户",
+      "login": {
+        "title": "登录"
+      },
+      "profile": {
+        "title": "账户信息"
+      }
+    }
+  },
+  "nouns": {
+    "partials": {
+      "required": "为必填项",
+      "invalid": "无效的"
+    },
+    "form": {
+      "submit": "提交"
+    },
+    "account": {
+      "email": "E-mail",
+      "emailRequired": "@:nouns.account.email @:nouns.partials.required",
+      "emailInvalid": "@:nouns.partials.invalid @:nouns.account.email",
+
+      "password": "密码",
+      "passwordRequired": "@:nouns.account.password @:nouns.partials.required"
+    }
+  },
+  "message": {
+    "network": {
+      "state": {
+        "loading": "正在加载...",
+        "error": "请求错误"
+      },
+      "status": {
+        "request": "服务未响应",
+        "response": {
+          "401": "错误的请求格式",
+          "403": "未经授权的请求",
+          "404": "未知请求位址",
+          "500": "内部服务错误",
+          "502": "服务网关错误",
+          "503": "服务暂不可用",
+          "504": "服务网关超时",
+          "default": "未知请求错误"
+        },
+        "internal": "内部错误"
+      }
     }
   }
 }

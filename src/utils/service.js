@@ -1,4 +1,7 @@
 import axios from 'axios';
+import store from '@/store';
+import uuidv1 from 'uuid/v1';
+import i18n from '../i18n';
 
 const service = axios.create({
   // when developing using webpack-dev-server, the server will automatically
@@ -8,5 +11,61 @@ const service = axios.create({
   baseURL: '/api',
   timeout: 30000,
 });
+
+service.interceptors.request.use(config => {
+  // Do something before request is sent
+  if (store.getters["account/isLoggedIn"]) {
+    config.headers = {
+      Authorization: `Bearer ${store.getters["account/token"]}`,
+    };
+  }
+  config._id = uuidv1();
+  store.commit('network/setBusy', true);
+  return config;
+}, function (error) {
+  // Do something with request error
+  return Promise.reject(error);
+});
+
+// Add a response interceptor
+service.interceptors.response.use(response => {
+  store.commit('network/setBusy', false);
+
+  // Remain response intact if there's no error
+  return response;
+}, error => {
+  store.commit('network/setBusy', false);
+
+  if (error.response) {
+    // The request was made and the server responded with a status code
+    // that falls out of the range of 2xx
+    if (error.response.code === 403) {
+      // jwt has been rejected
+    }
+
+    if ([401, 403, 404, 500, 502, 503, 504].includes(error.statusCode)) {
+      error.errorMessage = i18n.t(`message.network.status.response.${error.statusCode}`);
+    } else {
+      error.errorMessage = `${i18n.t('message.network.status.response.default')} (${error.statusCode || -1})`;
+    }
+  } else if (error.request) {
+    // The request was made but no response was received
+    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+    // http.ClientRequest in node.js
+    error.errorMessage = i18n.t(`message.network.status.request`);
+  } else {
+    error.errorMessage = i18n.t(`message.network.status.internal`);
+  }
+
+  store.commit('network/addError', {
+    config: error.config,
+    message: error.errorMessage,
+  });
+
+  // Do something with response error
+  return Promise.reject(error);
+});
+
+console.log(service);
 
 export default service;
