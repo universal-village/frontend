@@ -6,10 +6,17 @@
     "account": {
       "title": "My Account",
       "login": {
-        "title": "Login"
+        "title": "Login",
+        "reason": {
+          "sessionExpired": "Your session has expired, please login again",
+          "failedAuthentication": "E-mail or password you provided is incorrect"
+        }
       },
       "profile": {
         "title": "Profile"
+      },
+      "register": {
+        "title": "Register"
       }
     },
     "dashboard": {

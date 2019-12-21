@@ -10,6 +10,7 @@ module.exports = {
     contact: 'http://universalvillage.org/contact/',
   },
   credentials: {
-    recaptchaSiteKey: '6LeE8GQUAAAAADw5NwLtA6Ge_trrLCvTkJe8yD7d',
+    recaptchaSiteKey: process.env.NODE_ENV === 'production' ? '6LeE8GQUAAAAADw5NwLtA6Ge_trrLCvTkJe8yD7d' : "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
+    googleMapsApiKey: 'AIzaSyBO-y1Boglo9ylfKdLtHfSbEHnVioVTWJQ',
   },
 };

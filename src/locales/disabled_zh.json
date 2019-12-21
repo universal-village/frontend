@@ -6,10 +6,17 @@
     "account": {
       "title": "账户",
       "login": {
-        "title": "登录"
+        "title": "登录",
+        "reason": {
+          "sessionExpired": "您的登录会话已过期，请重新登录",
+          "failedAuthentication": "邮箱或密码不正确"
+        }
       },
       "profile": {
         "title": "账户信息"
+      },
+      "register": {
+        "title": "注册"
       }
     },
     "dashboard": {
@@ -46,7 +53,7 @@
         "request": "服务未响应",
         "response": {
           "401": "错误的请求格式",
-          "403": "未经授权的请求",
+          "403": "请求未授权",
           "404": "未知请求位址",
           "500": "内部服务错误",
           "502": "服务网关错误",

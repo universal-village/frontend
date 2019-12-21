@@ -25,7 +25,7 @@
           <v-list-item-title class="title">
             <v-img
               :src="require('@/assets/logo.png')"
-              :aspect-ratio="5.513071895"
+              :aspect-ratio="5.513"
               height="100"
               contain
             />
@@ -47,14 +47,14 @@
           <v-list-item
             v-if="!route.children || route.meta.forceSingle"
             :key="route.path"
-            @click="$router.push({name: route.name})"
+            @click="$router.push({path: route.path})"
           >
             <v-list-item-icon>
               <v-icon v-text="route.meta.icon" />
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>
-                {{ $t(route.meta.i18n) }} &nbsp; <v-icon
+                {{ $t(route.meta.title) }} &nbsp; <v-icon
                   v-if="!route.component && !route.meta.forceSingle"
                   small
                 >
@@ -70,15 +70,15 @@
             no-action
           >
             <template v-slot:activator>
-              <v-list-item-title>{{ $t(route.meta.i18n) }}</v-list-item-title>
+              <v-list-item-title>{{ $t(route.meta.title) }}</v-list-item-title>
             </template>
 
             <v-list-item
               v-for="child in route.children.filter(el => !el.meta.hide)"
               :key="child.name"
-              @click="$router.push({name: child.name})"
+              @click="$router.push({path: `${route.path}/${child.path}`})"
             >
-              <v-list-item-title>{{ $t(child.meta.i18n) }}</v-list-item-title>
+              <v-list-item-title>{{ $t(child.meta.title) }}</v-list-item-title>
 
               <v-list-item-icon>
                 <v-icon v-text="child.meta.icon" />
@@ -128,17 +128,12 @@
       />
 
       <v-toolbar-title>
-        {{ $t($route.meta.i18n) }}
+        {{ $t($route.meta.title) }}
       </v-toolbar-title>
 
       <v-spacer />
 
-      <v-btn
-        icon
-        :to="{name: 'AccountLogin'}"
-      >
-        <v-icon>mdi-exit-to-app</v-icon>
-      </v-btn>
+      <AccountNavButton />
 
       <template v-slot:extension>
         <v-breadcrumbs :items="routeBreadcrumbs" />
@@ -146,13 +141,20 @@
     </v-app-bar>
 
     <v-content id="content">
-      <router-view />
+      <transition
+        name="slide-fade"
+        mode="out-in"
+      >
+        <router-view />
+      </transition>
     </v-content>
   </v-app>
 </template>
 
 <script>
+  import AccountNavButton from "./components/AccountNavButton";
   export default {
+    components: {AccountNavButton},
     data: () => ({
       drawer: null,
     }),
@@ -162,7 +164,7 @@
         for (let route of this.$route.matched) {
           breadcrumbs.push(
             {
-              text: this.$t(route.meta.i18n),
+              text: this.$t(route.meta.title),
               link: true,
               exact: true,
               to: {name: route.name},
@@ -177,6 +179,24 @@
 
 <style>
   html {
-    overflow-y: visible;
+    overflow-y: auto;
+  }
+
+  #app {
+    font-family: 'SF Pro Display', 'SF Pro Text', 'SF Pro', 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .slide-fade-enter-active {
+    transition: all .325s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  .slide-fade-leave-active {
+    transition: all .175s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active for below version 2.1.8 */ {
+    transform: translateY(2vh);
+    opacity: 0;
   }
 </style>

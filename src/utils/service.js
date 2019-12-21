@@ -1,5 +1,6 @@
 import axios from 'axios';
 import store from '@/store';
+import router from '@/router';
 import uuidv1 from 'uuid/v1';
 import i18n from '../i18n';
 
@@ -36,11 +37,30 @@ service.interceptors.response.use(response => {
 }, error => {
   store.commit('network/setBusy', false);
 
+  if (error.request && error.request.url === "/auth/refresh" && error.response && error.response.code === 403) {
+    // this IS the refresh token doing its job but it fails, maybe because the refresh token has expired.
+    router.push({name: 'AccountLogin', params: {reason: "expiredSession"}});
+  }
+
   if (error.response) {
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx
-    if (error.response.code === 403) {
+
+    if (error.response.code === 403 && error.request.url !== "/auth/login") {
       // jwt has been rejected
+      // try to refresh the token
+      store.dispatch('account/refreshToken')
+        .then(() => {
+          return service.request(error.config);
+        })
+        .catch(() => {
+          router.push({
+            name: 'Login',
+            query: {
+              reason: 'sessionExpired',
+            },
+          });
+        });
     }
 
     if ([401, 403, 404, 500, 502, 503, 504].includes(error.statusCode)) {

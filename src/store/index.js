@@ -7,6 +7,8 @@ import mutations from './mutations';
 import actions from './actions';
 import modules from './modules';
 
+import createPersistedState from "vuex-persistedstate";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -15,4 +17,8 @@ export default new Vuex.Store({
   mutations,
   actions,
   modules,
+  plugins: [createPersistedState({
+    key: "universal-village-state",
+    paths: ["account"],
+  })],
 });

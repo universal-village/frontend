@@ -1,11 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from './store';
+
 import Login from './views/Account/Login';
 import AccountLayout from "./layouts/AccountLayout";
 import Profile from "./views/Account/Profile";
 import DashboardIndex from "./views/Dashboard/Index";
 import DashboardLayout from "./layouts/DashboardLayout";
+import Register from "./views/Account/Register";
+import acl from "./utils/acl";
 
 Vue.use(Router);
 
@@ -22,41 +25,43 @@ export default new Router({
       },
       meta: {
         hide: true,
+        acl: true,
       },
     },
     {
       path: '/dashboard',
-      name: 'Dashboard',
       components: {
         default: DashboardLayout,
       },
       meta: {
-        i18n: 'pages.dashboard.title',
+        title: 'pages.dashboard.title',
         icon: "mdi-view-dashboard-variant",
+        acl: [acl.USER],
       },
       children: [
         {
           path: '',
-          name: 'DashboardHome',
+          name: 'Dashboard',
           components: {
             dashboard: DashboardIndex,
           },
           meta: {
-            i18n: "pages.dashboard.home.title",
+            title: "pages.dashboard.home.title",
             icon: "mdi-home",
+            acl: [acl.USER],
           },
         },
       ],
     },
     {
       path: '/account',
-      name: 'Account',
       components: {
         default: AccountLayout,
       },
       meta: {
-        i18n: 'pages.account.title',
+        title: 'pages.account.title',
         icon: "mdi-account-circle",
+        acl: [acl.USER],
       },
       children: [
         {
@@ -66,8 +71,9 @@ export default new Router({
             account: Profile,
           },
           meta: {
-            i18n: "pages.account.profile.title",
+            title: "pages.account.profile.title",
             icon: "mdi-account-badge-horizontal",
+            acl: [acl.USER],
           },
         },
         {
@@ -76,10 +82,24 @@ export default new Router({
           components: {
             account: Login,
           },
+          props: (route) => ({ redirect: route.query.redirect || null }),
           meta: {
-            i18n: "pages.account.login.title",
+            title: "pages.account.login.title",
             icon: "mdi-exit-to-app",
             hide: true,
+            acl: [acl.GUEST],
+          },
+        },
+        {
+          path: 'register',
+          name: 'AccountRegister',
+          components: {
+            account: Register,
+          },
+          meta: {
+            title: "pages.account.register.title",
+            hide: true,
+            acl: [acl.GUEST],
           },
         },
       ],

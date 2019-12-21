@@ -1,5 +1,10 @@
 <template>
-  <router-view name="account" />
+  <transition
+    name="slide-fade"
+    mode="out-in"
+  >
+    <router-view name="account" />
+  </transition>
 </template>
 
 <script>

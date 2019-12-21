@@ -1,6 +1,6 @@
 <template>
   <v-container
-    class="fill-height"
+    class="align-content-center fill-height"
     fluid
   >
     <v-row
@@ -39,6 +39,14 @@
             </v-tooltip>
           </v-toolbar>
           <v-card-text>
+            <v-alert
+              :value="!!notice || !!error"
+              type="warning"
+              icon="mdi-account-lock"
+              border="left"
+            >
+              {{ notice ? notice : (error ? error : "") }}
+            </v-alert>
             <v-form>
               <v-text-field
                 v-model.trim="username"
@@ -48,6 +56,8 @@
                 type="email"
                 required
                 clearable
+
+                autocomplete="email"
 
                 :error-messages="usernameErrors"
                 @input="$v.username.$touch()"
@@ -62,6 +72,8 @@
                 type="password"
                 required
                 clearable
+
+                autocomplete="current-password"
 
                 :error-messages="passwordErrors"
                 @input="$v.password.$touch()"
@@ -82,13 +94,65 @@
                 color="primary"
                 :loading="buttonBusy"
                 :disabled="buttonBusy || $v.$invalid"
-                large
                 @click="solvingRecaptcha = true"
               >
                 {{ $t('nouns.form.submit') }}
               </v-btn>
             </vue-recaptcha>
           </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row
+      align="center"
+      justify="center"
+    >
+      <v-col
+        cols="12"
+        sm="10"
+        md="8"
+        lg="6"
+      >
+        <v-card
+          class="elevation-12"
+          ripple
+          style="cursor: pointer"
+          @click="$router.push({name: 'AccountRegister'})"
+        >
+          <!--          <v-sheet-->
+          <!--            class="d-flex align-center justify-start px-4"-->
+          <!--            color="primary"-->
+          <!--            height="64"-->
+          <!--            tile-->
+          <!--            dark-->
+          <!--          >-->
+          <!--            &lt;!&ndash;            <v-icon size="28">&ndash;&gt;-->
+          <!--            &lt;!&ndash;              mdi-account&ndash;&gt;-->
+          <!--            &lt;!&ndash;            </v-icon>&ndash;&gt;-->
+          <!--            <span class="subtitle-1 white&#45;&#45;text ml-3 font-weight-bold">-->
+          <!--              Register-->
+          <!--            </span>-->
+          <!--            <v-spacer />-->
+          <!--            <v-icon-->
+          <!--              right-->
+          <!--              size="36"-->
+          <!--            >-->
+          <!--              mdi-chevron-right-->
+          <!--            </v-icon>-->
+          <!--          </v-sheet>-->
+          <v-toolbar
+            color="primary"
+            dark
+            flat
+          >
+            <v-toolbar-title>
+              Register
+            </v-toolbar-title>
+            <v-spacer />
+            <v-icon>
+              mdi-chevron-right
+            </v-icon>
+          </v-toolbar>
         </v-card>
       </v-col>
     </v-row>
@@ -101,16 +165,23 @@ import VueRecaptcha from 'vue-recaptcha';
 import {validationMixin} from 'vuelidate';
 import {required, email} from 'vuelidate/lib/validators';
 export default {
-  name: "Login",
+  name: "AccountLogin",
   components: {
     VueRecaptcha,
   },
   mixins: [validationMixin],
+  props: {
+    redirect: {
+      type: String,
+      required: false,
+    },
+  },
   data () {
     return {
       solvingRecaptcha: false,
       username: '',
       password: '',
+      error: '',
     };
   },
   validations: {
@@ -142,13 +213,36 @@ export default {
       !this.$v.password.required && errors.push(this.$t('nouns.account.passwordRequired'));
       return errors;
     },
+    notice () {
+      const allowedReasons = ["sessionExpired"];
+      let reason = this.$route.query.reason;
+      if (allowedReasons.includes(reason)) {
+        return this.$t(`pages.account.login.reason.${reason}`);
+      } else {
+        return null;
+      }
+    },
   },
   methods: {
     submit () {
+      this.solvingRecaptcha = false;
       this.$store.dispatch('account/login', {
         username: this.username,
         password: this.password,
-      });
+      })
+        .then(() => {
+          if (this.redirect) {
+            this.$router.push({path: this.redirect});
+          } else {
+            this.$router.push({
+              name: "Dashboard",
+            });
+          }
+        })
+        .catch(() => {
+          this.error = this.$t('pages.account.login.reason.failedAuthentication');
+          this.$refs.recaptcha.reset();
+        });
     },
   },
 };
