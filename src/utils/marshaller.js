@@ -15,7 +15,8 @@ export default {
     password = sha256().update(password + salt).digest('hex');
     return {username, password};
   },
-  register: ({
+  register: (
+    {
     email,
     password,
 
@@ -35,7 +36,8 @@ export default {
     passport,
 
     form,
-  }) => {
+  }
+  ) => {
     let [birthYear, birthMonth, birthDay] = birthday.split("-");
     let address = form.meta.address;
 

@@ -1,5 +1,5 @@
 <template>
-  <v-slide-x-transition>
+  <v-scroll-y-transition>
     <v-btn
       v-if="!isLoggedIn"
       icon
@@ -11,6 +11,7 @@
     <v-menu
       v-else
       open-on-hover
+      :close-on-content-click="false"
       top
       transition="scroll-y-transition"
     >
@@ -25,8 +26,8 @@
       </template>
 
       <v-list
-        max-width="275"
         dense
+        max-width="275"
       >
         <v-list-item>
           <v-list-item-content>
@@ -49,6 +50,7 @@
             <v-icon>mdi-account</v-icon>
           </v-list-item-icon>
         </v-list-item>
+
         <v-list-item
           @click="logout"
         >
@@ -61,7 +63,7 @@
         </v-list-item>
       </v-list>
     </v-menu>
-  </v-slide-x-transition>
+  </v-scroll-y-transition>
 </template>
 
 <script>

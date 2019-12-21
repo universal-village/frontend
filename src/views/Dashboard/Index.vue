@@ -27,7 +27,8 @@
           v-if="rolesText.length > 0"
         >
           <h2 class="title px-3 mb-4">
-            Your {{ rolesText.length > 1 ? "roles" : "role" }}:
+            You are...
+            <!--            Your {{ rolesText.length > 1 ? "roles" : "role" }}:-->
           </h2>
           <ul
             v-for="role in rolesText"
@@ -39,6 +40,11 @@
       </v-col>
     </v-row>
     <v-divider class="my-4" />
+    <v-row class="px-6">
+      <h2 class="title">
+        Now you can...
+      </h2>
+    </v-row>
     <v-row
       class="px-4"
     >
@@ -64,12 +70,25 @@
             <v-icon size="48">
               {{ child.icon }}
             </v-icon>
+            <v-chip
+              color="secondary"
+              style="position: absolute; top: 112px; right: .5em;"
+            >
+              <v-icon left>
+                mdi-account-circle
+              </v-icon>
+              As {{ child.as }}
+            </v-chip>
             <!--            <span class="headline grey&#45;&#45;text text&#45;&#45;darken-3 ml-4 font-weight-black">-->
             <!--              x5-->
             <!--            </span>-->
           </v-sheet>
-          <v-card-title>{{ child.title }}</v-card-title>
-          <v-card-subtitle>{{ child.subtitle }}</v-card-subtitle>
+          <v-card-title>
+            {{ child.title }}
+          </v-card-title>
+          <v-card-subtitle>
+            {{ child.subtitle }}
+          </v-card-subtitle>
         </v-card>
       </v-col>
     </v-row>
@@ -89,33 +108,37 @@
 
         if (this.roles.includes("CategoryChair")) {
           routes.push({
-            "route": "CategoryChairPapers",
-            "title": "Category Papers",
-            "subtitle": "View papers belong to your category",
-            "icon": "mdi-file-multiple",
+            "route": "ChairAssignReviewer",
+            "title": "Assign Reviewer",
+            "subtitle": "Assign reviewer to papers",
+            "icon": "mdi-file-account",
+            "as": "Category Chair",
           });
         }
 
         if (this.roles.includes("Reviewer")) {
           routes.push({
-            "route": "ReviewerPapers",
+            "route": "ReviewerReview",
             "title": "Assigned Papers",
             "subtitle": "Review papers assigned to you",
             "icon": "mdi-file-document-edit",
+            "as": "Reviewer",
           });
         }
 
         routes.push({
-            "route": "PaperAdd",
+            "route": "MemberSubmit",
             "title": "Submit Paper",
             "subtitle": "Submit a new paper to the conference",
             "icon": "mdi-file-document-box-plus",
+            "as": "Member",
           },
           {
-            "route": "PaperList",
+            "route": "MemberSubmissions",
             "title": "My Submissions",
             "subtitle": "View the statuses of previous paper submissions",
             "icon": "mdi-file-document-box-multiple",
+            "as": "Member",
           });
 
         return routes;
@@ -123,14 +146,14 @@
       rolesText () {
         let roles = [];
         if (this.roles.includes("CategoryChair")) {
-          roles.push(`Category Chair of "${this.details.categoryChair.category.name}"`);
+          roles.push(`The Category Chair of "${this.details.categoryChair.category.name}"`);
         }
         if (this.roles.includes("Reviewer")) {
-          roles.push(`Paper Reviewer of "${this.details.reviewer.category.name}"`);
+          roles.push(`The Paper Reviewer of "${this.details.reviewer.category.name}"`);
         }
         if (this.roles.includes("Attendee")) {
           let tags = [];
-          tags.push("Conference attendee as a");
+          tags.push("A conference attendee as a");
           (this.details.attendee.isStudent === "true") && tags.push("student");
           (this.details.attendee.isStudent === "true" && this.details.attendee.isSenior === "true") && tags.push("and");
           (this.details.attendee.isSenior === "true") && tags.push("senior");

@@ -18,7 +18,9 @@
     <!--    </v-app-bar>-->
     <v-navigation-drawer
       v-model="drawer"
+      :disable-resize-watcher="!drawerPermitted"
       app
+      width="300"
     >
       <v-list-item>
         <v-list-item-content>
@@ -41,7 +43,7 @@
       >
         <!-- root routes-->
         <div
-          v-for="route in $router.options.routes.filter(el => !el.meta.hide)"
+          v-for="route in routes"
           :key="route.path"
         >
           <v-list-item
@@ -78,7 +80,9 @@
               :key="child.name"
               @click="$router.push({path: `${route.path}/${child.path}`})"
             >
-              <v-list-item-title>{{ $t(child.meta.title) }}</v-list-item-title>
+              <v-list-item-title>
+                {{ child.meta.title }}
+              </v-list-item-title>
 
               <v-list-item-icon>
                 <v-icon v-text="child.meta.icon" />
@@ -101,7 +105,15 @@
           <v-divider />
 
           <v-card-text>
-            {{ new Date().getFullYear() }} — <strong>Universal Village</strong>
+            {{ new Date().getFullYear() }} — <strong>Universal Village</strong> <v-btn
+              icon
+              href="https://github.com/universal-village/frontend"
+              target="_blank"
+            >
+              <v-icon>
+                mdi-github-circle
+              </v-icon>
+            </v-btn>
           </v-card-text>
         </v-card>
       </v-footer>
@@ -124,6 +136,7 @@
       </template>
 
       <v-app-bar-nav-icon
+        v-if="drawerPermitted"
         @click.stop="drawer = !drawer"
       />
 
@@ -153,12 +166,24 @@
 
 <script>
   import AccountNavButton from "./components/AccountNavButton";
+  // import acl from "./utils/acl";
   export default {
     components: {AccountNavButton},
     data: () => ({
-      drawer: null,
+      _drawer: false,
     }),
     computed: {
+      drawer: {
+        get() {
+          return this.drawerPermitted ? this._drawer : false;
+        },
+        set(value) {
+          this.drawerPermitted && (this._drawer = value);
+        },
+      },
+      drawerPermitted () {
+        return this.routes.length !== 0 && this.$store.getters['account/isLoggedIn'];
+      },
       routeBreadcrumbs () {
         let breadcrumbs = [];
         for (let route of this.$route.matched) {
@@ -172,6 +197,18 @@
           );
         }
         return breadcrumbs;
+      },
+      routes () {
+        let routes = this.$router.options.routes;
+        routes = routes.filter(el => !el.meta.hide && this.allowed(el.meta.acl));
+        console.log(routes);
+        return routes;
+      },
+    },
+    methods: {
+      allowed () {
+        // return acl.allowed(policy) === acl.OK;
+        return true;
       },
     },
   };
