@@ -386,7 +386,7 @@ import VueRecaptcha from 'vue-recaptcha';
 import {validationMixin} from 'vuelidate';
 import {required, email, sameAs, minLength, maxLength, requiredIf} from 'vuelidate/lib/validators';
 import marshaller from "../../utils/marshaller";
-import api from "../../api";
+// import api from "../../api";
 
 export default {
   name: "AccountRegister",
@@ -532,14 +532,16 @@ export default {
     submit () {
       this.solvingRecaptcha = false;
       let marshalled = marshaller.register(this);
-      api.register(marshalled)
-        .then(() => {
-          this.step += 1;
-        })
-        .catch((err) => {
-          alert(err);
-          this.$refs.recaptcha.reset();
-        });
+      // api.register(marshalled)
+      //   .then(() => {
+      //     this.step += 1;
+      //   })
+      //   .catch((err) => {
+      //     alert(err);
+      //     this.$refs.recaptcha.reset();
+      //   });
+      console.log(marshalled);
+      this.step += 1;
     },
     next () {
       let index = this.step - 2;

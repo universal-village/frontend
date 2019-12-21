@@ -20,7 +20,7 @@ export default {
   },
   register (data) {
     return service
-      .post("/register", data);
+      .post("/auth/register", data);
   },
   refresh (refreshToken) {
     return service
