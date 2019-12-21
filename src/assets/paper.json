@@ -1,0 +1,96 @@
+{
+    "paperId": 48,
+    "title": "Test%2520Paper%2520of%2520Guanghua%2520hhhh",
+    "authors": "gg%252Cgh",
+    "categoryId": 1,
+    "category": {
+      "categoryId": "1",
+      "name": "Intelligent Transportation and Urban Planning"
+    },
+    "keywords": "file",
+    "link": "https://s3.us-east-2.amazonaws.com/uv2018-paper/1533069118244-2018.7.9-COMBINING_HIDDEN_MARKOV_MODEL_AND_NEURAL.pdf",
+    "phase": "Accept",
+    "paperAbstract": "Lorem%2520ipsum%2520dolor%2520sit%2520amet%252C%2520consectetur%2520adipiscing%2520elit.%2520Quisque%2520in%2520dui%2520enim.%2520Pellentesque%2520pulvinar%2520augue%2520ante%252C%2520nec%2520tempus%2520elit%2520feugiat%2520nec.%2520Maecenas%2520imperdiet%2520nec%2520justo%2520sed%2520egestas.%2520In%2520hac%2520habitasse%2520platea%2520dictumst.%2520Vestibulum%2520non%2520convallis%2520sem%252C%2520in%2520commodo%2520leo.%2520Cras%2520efficitur%2520tincidunt%2520nisl%252C%2520aliquam%2520cursus%2520magna%2520congue%2520eget.%2520Praesent%2520porttitor%2520urna%2520nec%2520libero%2520auctor%252C%2520sed%2520efficitur%2520dui%2520faucibus.%2520Curabitur%2520mi%2520mauris%252C%2520dapibus%2520ac%2520enim%2520ac%252C%2520laoreet%2520sagittis%2520neque.%2520Ut%2520elementum%2520lobortis%2520sapien%2520a%2520consequat.%2520Integer%2520ac%2520dictum%2520sem.%2520Suspendisse%2520molestie%2520massa%2520laoreet%2520accumsan%2520pulvinar.%2520In%2520in%2520velit%2520eget%2520diam%2520vestibulum%2520convallis.%2520Sed%2520fringilla%2520scelerisque%2520iaculis.%2520Fusce%2520et%2520justo%2520quis%2520ligula%2520scelerisque%2520mattis.%2520Vestibulum%2520ante%2520ipsum%2520primis%2520in%2520faucibus%2520orci%2520luctus%2520et%2520ultrices%2520posuere%2520cubilia%2520Curae%253B%2520Curabitur%2520rutrum%2520leo%2520mauris%252C%2520vitae%2520imperdiet%2520tortor%2520placerat%2520vitae.%250A%250ANunc%2520imperdiet%2520risus%2520risus%252C%2520sed%2520euismod%2520arcu%2520fringilla%2520quis.%2520Cras%2520suscipit%2520nibh%2520vitae%2520augue%2520mattis%2520lacinia.%2520Aenean%2520leo%2520nibh%252C%2520mattis%2520ut%2520mi%2520vitae%252C%2520pulvinar%2520accumsan%2520erat.%2520Nulla%2520euismod%2520sodales%2520blandit.%2520Suspendisse%2520vestibulum%2520felis%2520elementum%2520tristique%2520efficitur.%2520Aliquam%2520erat%2520augue%252C%2520egestas%2520nec%2520purus%2520ut%252C%2520tempor%2520aliquet%2520justo.%2520Quisque%2520quis%2520sem%2520in%2520velit%2520aliquam%2520accumsan.",
+    "users": [
+      {
+        "userId": 5,
+        "firstName": "Guanghua",
+        "lastName": "Cheng",
+        "middleName": "",
+        "nameInOwnLanguage": "Guanghua+Cheng",
+        "title": "Dr",
+        "organization": "Universal+Village",
+        "bios": "Very+Handsome",
+        "photo": "https://s3.us-east-2.amazonaws.com/uv2018-user-photo/1539566416646-SavedAnnotation2.jpg",
+        "email": "cheng.gu%40husky.neu.edu",
+        "address": "21+Clinton+Street",
+        "city": "Malden",
+        "state": "MA",
+        "country": "US",
+        "zipCode": "02148",
+        "telephone": "7819957225",
+        "fax": "",
+        "cellphone": "7819957225",
+        "passport": "undefined",
+        "needSupport": "false",
+        "birthYear": 1995,
+        "birthMonth": 6,
+        "birthDay": 21,
+        "reviews": [
+          {
+            "reviewerId": 5,
+            "paperId": 5,
+            "comment": null,
+            "surveyTutorialContribution": null,
+            "technologicalContribution": null,
+            "originalityOfConcepts": null,
+            "theoreticalContribution": null,
+            "technicalSoundness": null,
+            "importanceOfResults": null,
+            "clarityOfPresentation": null,
+            "overall": null
+          }
+        ],
+        "categoryChair": {
+          "userId": 5,
+          "categoryId": 1,
+          "category": {
+            "categoryId": "1",
+            "name": "Intelligent Transportation and Urban Planning"
+          }
+        },
+        "reviewer": {
+          "userId": 5,
+          "categoryId": 16,
+          "category": {
+            "categoryId": "16",
+            "name": "UV Day"
+          }
+        },
+        "author": {
+          "userId": 5
+        },
+        "attendee": {
+          "userId": 5,
+          "ieeeNo": "",
+          "isSenior": "false",
+          "isStudent": "true"
+        }
+      }
+    ],
+    "reviews": [
+      {
+        "reviewerId": 17,
+        "paperId": 48,
+        "comment": "Lorem+ipsum+dolor+sit+amet%2C+consectetur+adipiscing+elit.+Quisque+in+dui+enim.+Pellentesque+pulvinar+augue+ante%2C+nec+tempus+elit+feugiat+nec.+Maecenas+imperdiet+nec+justo+sed+egestas.+In+hac+habitasse+platea+dictumst.+Vestibulum+non+convallis+sem%2C+in+commodo+leo.+Cras+efficitur+tincidunt+nisl%2C+aliquam+cursus+magna+congue+eget.+Praesent+porttitor+urna+nec+libero+auctor%2C+sed+efficitur+dui+faucibus.+Curabitur+mi+mauris%2C+dapibus+ac+enim+ac%2C+laoreet+sagittis+neque.+Ut+elementum+lobortis+sapien+a+consequat.+Integer+ac+dictum+sem.+Suspendisse+molestie+massa+laoreet+accumsan+pulvinar.+In+in+velit+eget+diam+vestibulum+convallis.+Sed+fringilla+scelerisque+iaculis.+Fusce+et+justo+quis+ligula+scelerisque+mattis.+Vestibulum+ante+ipsum+primis+in+faucibus+orci+luctus+et+ultrices+posuere+cubilia+Curae%3B+Curabitur+rutrum+leo+mauris%2C+vitae+imperdiet+tortor+placerat+vitae.%0A.%2F%7C%5C%40%40",
+        "surveyTutorialContribution": "A",
+        "technologicalContribution": "A",
+        "originalityOfConcepts": "A-",
+        "theoreticalContribution": "A",
+        "technicalSoundness": "A-",
+        "importanceOfResults": "A%2B",
+        "clarityOfPresentation": "A",
+        "overall": "A-"
+      }
+    ]
+  }
