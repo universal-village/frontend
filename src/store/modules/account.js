@@ -1,5 +1,5 @@
-import api from "../../api";
-import marshaller from "../../utils/marshaller";
+import api from "../../api/api";
+import marshaller from "../../utils/marshal";
 
 const EMPTY_JWT_STATE = {
   token: "",
@@ -53,6 +53,20 @@ export default {
               });
           })
           .catch(err => {
+            reject(err);
+          });
+      });
+    },
+    jwtLogin ({commit, dispatch}, credentials) {
+      return new Promise((resolve, reject) => {
+        commit('updateJwt', credentials);
+        api.getCurrentUser()
+          .then(({data}) => {
+            commit('updateDetails', data);
+            resolve();
+          })
+          .catch(err => {
+            dispatch('logout');
             reject(err);
           });
       });

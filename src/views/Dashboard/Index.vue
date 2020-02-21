@@ -49,8 +49,8 @@
       class="px-4"
     >
       <v-col
-        v-for="(child, j) in routes"
-        :key="`${i}-${j}`"
+        v-for="(child, i) in routes"
+        :key="`${i}`"
         cols="12"
         sm="6"
         md="6"
@@ -73,6 +73,7 @@
             <v-chip
               color="secondary"
               style="position: absolute; top: 112px; right: .5em;"
+              elevation="3"
             >
               <v-icon left>
                 mdi-account-circle

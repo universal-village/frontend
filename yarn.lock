@@ -3841,6 +3841,21 @@ file-loader@^4.2.0:
     loader-utils "^1.2.3"
     schema-utils "^2.5.0"
 
+filepond-plugin-file-validate-size@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-file-validate-size/-/filepond-plugin-file-validate-size-2.2.0.tgz#89e393e4c757c38467b8b2f7049760682d036716"
+  integrity sha512-Czlj4JLrxWRXBm50QO4rzvEVZVGfB4Gst0denBAGTKTZtuj566KB7vwDQy/daZoYtXOQdoVvfJgrJGifZ5n9KA==
+
+filepond-plugin-file-validate-type@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-file-validate-type/-/filepond-plugin-file-validate-type-1.2.4.tgz#ce7f5f469dbc7ce0da12fdef7b0f24e4c263c410"
+  integrity sha512-K1qD8mfahJoz2zRlWWvYoHuy4k/8tHggsoGbm/blpTp63OyahOdJBzMN3VK7USYn5OZ58uOFdMTMyi8ibFpW/Q==
+
+filepond@^4.11.0:
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.11.0.tgz#4c09971d711c2c8cc7f0e13624c8a542ed1afd15"
+  integrity sha512-BCzpBBnv8DgBUeEZPNQyltdD1YIXemm8VjQJ9+vKKhVkGMRQcAzGBFZBtWJSI4dbZF8KVQn+jIvRGujcm5T+EA==
+
 filesize@^3.6.1:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/filesize/-/filesize-3.6.1.tgz#090bb3ee01b6f801a8a8be99d31710b3422bb317"
@@ -8770,6 +8785,11 @@ vue-eslint-parser@^5.0.0:
     espree "^4.1.0"
     esquery "^1.0.1"
     lodash "^4.17.11"
+
+vue-filepond@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/vue-filepond/-/vue-filepond-6.0.2.tgz#416cfaafe7e4356b169cbdf9e1c3cd3d2043d547"
+  integrity sha512-HE1TvV2LrKMU3pFeIBbR9Uf6cryNLVnnl35uSL+HLsZ6rfZ3C1alfre3UcaSoKTVuxNsn41Ce4IR528UwdxZfw==
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"

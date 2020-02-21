@@ -1,5 +1,5 @@
 <template>
-  <v-scroll-y-transition>
+  <v-scroll-x-transition>
     <v-btn
       v-if="!isLoggedIn"
       icon
@@ -29,6 +29,9 @@
         dense
         max-width="275"
       >
+        <v-icon style="position: absolute; top: .3em; right: .3em;">
+          mdi-account-circle
+        </v-icon>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title class="subtitle-1">
@@ -63,7 +66,7 @@
         </v-list-item>
       </v-list>
     </v-menu>
-  </v-scroll-y-transition>
+  </v-scroll-x-transition>
 </template>
 
 <script>

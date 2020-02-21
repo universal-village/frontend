@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from './store';
+import acl from "./utils/acl";
+import config from "./config";
 
 import Login from './views/Account/Login';
 import AccountLayout from "./layouts/AccountLayout";
@@ -9,9 +11,14 @@ import DashboardIndex from "./views/Dashboard/Index";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Register from "./views/Account/Register";
 import PaperIndex from "./views/Papers/List";
-
-import acl from "./utils/acl";
-import config from "./config";
+import AssignReviewer from "./views/Chair/AssignReviewer";
+import ReviewPaper from "./views/Reviewer/ReviewPaper";
+import PaperAdd from "./views/Papers/Add";
+import ConferenceRegistration from "./views/Member/ConferenceRegistration";
+import ChairLayout from "./layouts/Roles/ChairLayout";
+import ReviewerLayout from "./layouts/Roles/ReviewerLayout";
+import MemberLayout from "./layouts/Roles/MemberLayout";
+import NotFound from "./views/Error/NotFound";
 
 Vue.use(Router);
 
@@ -58,6 +65,9 @@ const router = new Router({
     },
     {
       path: '/chair',
+      components: {
+        default: ChairLayout,
+      },
       meta: {
         title: "Category Chair",
         icon: "mdi-account-tie",
@@ -68,7 +78,7 @@ const router = new Router({
           path: 'assign-reviewer',
           name: 'ChairAssignReviewer',
           components: {
-            dashboard: PaperIndex,
+            chair: AssignReviewer,
           },
           meta: {
             title: "Assign Reviewer",
@@ -80,6 +90,9 @@ const router = new Router({
     },
     {
       path: '/reviewer',
+      components: {
+        default: ReviewerLayout,
+      },
       meta: {
         title: "Reviewer",
         icon: "mdi-account-edit",
@@ -90,7 +103,7 @@ const router = new Router({
           path: 'review',
           name: 'ReviewerReview',
           components: {
-            dashboard: PaperIndex,
+            reviewer: ReviewPaper,
           },
           meta: {
             title: "Review Papers",
@@ -102,21 +115,25 @@ const router = new Router({
     },
     {
       path: '/member',
+      components: {
+        default: MemberLayout,
+      },
       meta: {
         title: "Member",
         icon: "mdi-account-multiple",
         acl: [acl.USER],
+        active: true,
       },
       children: [
         {
           path: 'submit',
           name: 'MemberSubmit',
           components: {
-            dashboard: PaperIndex,
+            member: PaperAdd,
           },
           meta: {
             title: "Submit Paper",
-            icon: "mdi-account-badge",
+            icon: "mdi-file-document-box-plus",
             acl: [acl.USER],
           },
         },
@@ -125,11 +142,11 @@ const router = new Router({
           path: 'submissions',
           name: 'MemberSubmissions',
           components: {
-            dashboard: PaperIndex,
+            member: PaperIndex,
           },
           meta: {
             title: "My Submissions",
-            icon: "mdi-account-badge",
+            icon: "mdi-file-document-box-multiple",
             acl: [acl.USER],
           },
         },
@@ -138,11 +155,11 @@ const router = new Router({
           path: 'registration',
           name: 'MemberConferenceRegistration',
           components: {
-            dashboard: PaperIndex,
+            member: ConferenceRegistration,
           },
           meta: {
             title: "Conference Registration",
-            icon: "mdi-account-badge",
+            icon: "mdi-credit-card",
             acl: [acl.USER],
           },
         },
@@ -199,6 +216,17 @@ const router = new Router({
         },
       ],
     },
+    {
+      path: '*',
+      components: {
+        default: NotFound,
+      },
+      meta: {
+        title: 'Page Not Found',
+        acl: [acl.GUEST, acl.USER],
+        hide: true,
+      },
+    },
   ],
 });
 
@@ -207,7 +235,7 @@ router.beforeEach((to, from, next) => {
   let permit = acl.allowed(to.meta.acl);
   if (permit === acl.OK) return next();
   if (permit === acl.NO_PERMISSION) return next(false);
-  if (permit === acl.NOT_LOGGED_IN) return next({name: "AccountLogin", query: to.path});
+  if (permit === acl.NOT_LOGGED_IN) return next({name: "AccountLogin", query: { redirect: to.path }});
   return next();
 });
 

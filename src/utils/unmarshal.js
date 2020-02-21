@@ -1,0 +1,21 @@
+import Paper from "../models/Paper";
+//
+// function get(key, object, fallback="") {
+//   if (key in object) {
+//     return object[key];
+//   } else {
+//     return fallback;
+//   }
+// }
+
+export default {
+  paper (args) {
+    const doubleEncodingKeys = "title authors keywords paperAbstract".split(" ");
+    for (let key of doubleEncodingKeys) {
+      if (key in args) {
+        args[key] = decodeURIComponent(decodeURIComponent(args[key]));
+      }
+    }
+    return new Paper(args);
+  },
+};

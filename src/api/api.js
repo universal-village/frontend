@@ -43,4 +43,19 @@ export default {
     return service
       .get(`/categories`);
   },
+  papers: {
+    upload: (paperId, file, progress) => {
+      const formData = new FormData();
+      formData.append("paperId", paperId);
+      formData.append("file", file, file.name);
+
+      return service({
+        url: `/papers/${paperId}/upload`,
+        timeout: 8640000, // 24 hours
+        data: formData, // form data
+        onUploadProgress: progress,
+        method: 'post',
+      });
+    },
+  },
 };

@@ -4,6 +4,25 @@ import router from '@/router';
 import uuidv1 from 'uuid/v1';
 import i18n from '../i18n';
 
+function redirectLogin() {
+  router.push({
+    name: 'AccountLogin',
+    query: {
+      reason: 'sessionExpired',
+    },
+  });
+}
+
+function isAuthEndpoint(path) {
+  const publicPaths = ["/auth/refresh", "/auth/login", "/auth/register"];
+  for (let publicPath of publicPaths) {
+    if (path.indexOf(publicPath) >= 0) {
+      return true;
+    }
+  }
+  return false;
+}
+
 const service = axios.create({
   // when developing using webpack-dev-server, the server will automatically
   // proxy requests to the unknown url to http://localhost:8080, so we can
@@ -15,7 +34,7 @@ const service = axios.create({
 
 service.interceptors.request.use(config => {
   // Do something before request is sent
-  if (store.getters["account/isLoggedIn"]) {
+  if (store.getters["account/isLoggedIn"] && !isAuthEndpoint(config.url)) {
     config.headers = {
       Authorization: `Bearer ${store.getters["account/token"]}`,
     };
@@ -24,6 +43,7 @@ service.interceptors.request.use(config => {
   store.commit('network/setBusy', true);
   return config;
 }, function (error) {
+  store.commit('network/setBusy', false);
   // Do something with request error
   return Promise.reject(error);
 });
@@ -37,36 +57,43 @@ service.interceptors.response.use(response => {
 }, error => {
   store.commit('network/setBusy', false);
 
-  if (error.request && error.request.url === "/auth/refresh" && error.response && error.response.code === 403) {
-    // this IS the refresh token doing its job but it fails, maybe because the refresh token has expired.
-    router.push({name: 'AccountLogin', params: {reason: "expiredSession"}});
-  }
+  console.log({error});
 
   if (error.response) {
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx
 
-    if (error.response.code === 403 && error.request.url !== "/auth/login") {
-      // jwt has been rejected
-      // try to refresh the token
-      store.dispatch('account/refreshToken')
-        .then(() => {
-          return service.request(error.config);
-        })
-        .catch(() => {
-          router.push({
-            name: 'Login',
-            query: {
-              reason: 'sessionExpired',
-            },
+    // if (error.config && error.config.url.indexOf("/auth") >= 0 && error.response && error.response.status === 401) {
+    //   // this IS the refresh token doing its job but it fails, maybe because the refresh token has expired.
+    //   router.push({name: 'AccountLogin', params: {reason: "expiredSession"}});
+    //   return Promise.reject(error);
+    // }
+
+    if (error.response.status === 403 || error.response.status === 401) {
+      if (isAuthEndpoint(error.config.url)) {
+        // this IS the refresh token doing its job but it fails
+        // maybe because the refresh token has expired
+        // let user login again
+        redirectLogin();
+      } else {
+        // jwt has been rejected
+        // try to refresh the token
+        store.dispatch('account/refreshToken')
+          .then(() => {
+            let config = error.config;
+            config.url = config.url.replace("/api", "");
+            return service.request(config);
+          })
+          .catch(() => {
+            redirectLogin();
           });
-        });
+      }
     }
 
-    if ([401, 403, 404, 500, 502, 503, 504].includes(error.statusCode)) {
-      error.errorMessage = i18n.t(`message.network.status.response.${error.statusCode}`);
+    if ([401, 403, 404, 500, 502, 503, 504].includes(error.response.status)) {
+      error.errorMessage = i18n.t(`message.network.status.response.${error.response.status}`);
     } else {
-      error.errorMessage = `${i18n.t('message.network.status.response.default')} (${error.statusCode || -1})`;
+      error.errorMessage = `${i18n.t('message.network.status.response.default')} (${error.response.status || -1})`;
     }
   } else if (error.request) {
     // The request was made but no response was received
@@ -74,6 +101,7 @@ service.interceptors.response.use(response => {
     // http.ClientRequest in node.js
     error.errorMessage = i18n.t(`message.network.status.request`);
   } else {
+    // internal error
     error.errorMessage = i18n.t(`message.network.status.internal`);
   }
 

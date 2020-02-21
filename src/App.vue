@@ -22,7 +22,7 @@
       app
       width="300"
     >
-      <v-list-item>
+      <v-list-item :to="{name: 'Dashboard'}">
         <v-list-item-content>
           <v-list-item-title class="title">
             <v-img
@@ -49,7 +49,7 @@
           <v-list-item
             v-if="!route.children || route.meta.forceSingle"
             :key="route.path"
-            @click="$router.push({path: route.path})"
+            :to="{path: route.path}"
           >
             <v-list-item-icon>
               <v-icon v-text="route.meta.icon" />
@@ -72,13 +72,13 @@
             no-action
           >
             <template v-slot:activator>
-              <v-list-item-title>{{ $t(route.meta.title) }}</v-list-item-title>
+              <v-list-item-title>{{ route.meta.title }}</v-list-item-title>
             </template>
 
             <v-list-item
               v-for="child in route.children.filter(el => !el.meta.hide)"
               :key="child.name"
-              @click="$router.push({path: `${route.path}/${child.path}`})"
+              :to="{name: child.name}"
             >
               <v-list-item-title>
                 {{ child.meta.title }}
@@ -141,7 +141,7 @@
       />
 
       <v-toolbar-title>
-        {{ $t($route.meta.title) }}
+        {{ $route.meta.title }}
       </v-toolbar-title>
 
       <v-spacer />
@@ -166,32 +166,38 @@
 
 <script>
   import AccountNavButton from "./components/AccountNavButton";
-  // import acl from "./utils/acl";
+
   export default {
     components: {AccountNavButton},
-    data: () => ({
-      _drawer: false,
-    }),
+    data() {
+      return {
+        rawDrawer: false,
+      };
+    },
     computed: {
       drawer: {
-        get() {
-          return this.drawerPermitted ? this._drawer : false;
+        get: function () {
+          if (this.drawerPermitted) {
+            return this.rawDrawer;
+          }
+          return false;
         },
-        set(value) {
-          this.drawerPermitted && (this._drawer = value);
+        set: function (value) {
+          if (this.drawerPermitted) {
+            this.rawDrawer = value;
+          }
         },
       },
       drawerPermitted () {
-        return this.routes.length !== 0 && this.$store.getters['account/isLoggedIn'];
+        return this.$store.getters['account/isLoggedIn'];
       },
       routeBreadcrumbs () {
         let breadcrumbs = [];
         for (let route of this.$route.matched) {
           breadcrumbs.push(
             {
-              text: this.$t(route.meta.title),
+              text: route.meta.title,
               link: true,
-              exact: true,
               to: {name: route.name},
             }
           );
@@ -201,7 +207,6 @@
       routes () {
         let routes = this.$router.options.routes;
         routes = routes.filter(el => !el.meta.hide && this.allowed(el.meta.acl));
-        console.log(routes);
         return routes;
       },
     },

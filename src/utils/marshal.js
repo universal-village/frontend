@@ -11,7 +11,6 @@ function get(key, object, fallback="") {
 export default {
   credentials: ({username, password}) => {
     const salt = "universal-village";
-    username = encodeURIComponent(username);
     password = sha256().update(password + salt).digest('hex');
     return {username, password};
   },
@@ -51,9 +50,9 @@ export default {
       lastName,
       nameInOwnLanguage: customName,
 
-      birthYear,
-      birthMonth,
-      birthDay,
+      birthYear: parseInt(birthYear),
+      birthMonth: parseInt(birthMonth),
+      birthDay: parseInt(birthDay),
 
       bios: biography,
       organization,
@@ -64,7 +63,7 @@ export default {
       city: get("locality", address),
       state: get("administrative_area_level_1", address),
 
-      telephone: phone,
+      cellphone: phone,
       needSupport: visa.toString(),
       passport,
     };

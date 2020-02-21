@@ -14,7 +14,7 @@ module.exports = {
   integrity: true,
   productionSourceMap: false,
   devServer: {
-    proxy: 'http://localhost:8080',
+    proxy: 'http://40.112.131.74/webapi',
   },
   pwa: {
     name: config.conference.name.short,
