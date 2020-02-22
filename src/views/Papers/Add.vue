@@ -119,16 +119,22 @@
               @blur="$v.form.authors.$touch()"
             >
               <template v-slot:selection="{ attrs, item, parent, selected }">
-                <v-chip
-                  small
-                  close
-                  v-bind="attrs"
-                  :input-value="selected"
-                  :color="authorsChip(item).color"
-                  @click:close="parent.selectItem(item)"
-                >
-                  {{ authorsChip(item).text }}
-                </v-chip>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-chip
+                      small
+                      close
+                      v-bind="attrs"
+                      :input-value="selected"
+                      :color="authorsChip(item).color"
+                      @click:close="parent.selectItem(item)"
+                      v-on="on"
+                    >
+                      {{ authorsChip(item).text }}
+                    </v-chip>
+                  </template>
+                  Email: {{ authorsChip(item).email }}
+                </v-tooltip>
               </template>
             </v-combobox>
             <v-btn
@@ -466,7 +472,8 @@
         let name;
         if (this.authorsLastSuccess && item in this.authorsLastSuccess) {
           const o = this.authorsLastSuccess[item];
-          name = `${o.title?`${o.title}. `:''}${o.firstName}${o.middleName ? ` ${o.middleName}` : ' '} ${o.lastName}`;
+          const title = o.title ? (o.title.includes('.') ? `${o.title} ` : `${o.title}. ` ) : '';
+          name = `${title}${o.firstName}${o.middleName ? ` ${o.middleName}` : ' '} ${o.lastName}`;
         } else {
           name = item;
         }
