@@ -68,4 +68,21 @@ export default {
       passport,
     };
   },
+  paper: (
+    {
+      title,
+      abstract,
+      category,
+      authors,
+      keywords,
+    }
+  ) => {
+    return {
+      title,
+      paperAbstract: abstract,
+      keywords: keywords.join(","),
+      categoryId: category,
+      authors: authors.join(","),
+    };
+  },
 };

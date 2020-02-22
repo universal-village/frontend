@@ -44,6 +44,10 @@ export default {
       .get(`/categories`);
   },
   papers: {
+    submit: (data) => {
+      return service
+        .post("/papers", data);
+    },
     upload: (paperId, file, progress) => {
       const formData = new FormData();
       formData.append("paperId", paperId);
@@ -56,6 +60,12 @@ export default {
         onUploadProgress: progress,
         method: 'post',
       });
+    },
+  },
+  users: {
+    checkNames: (names) => {
+      return service
+        .post("/users/checkNames", names);
     },
   },
 };

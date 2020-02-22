@@ -1,19 +1,32 @@
 <template>
-  <v-container class="px-3">
-    <h1 class="display-1 pt-3">
-      My Submissions
-    </h1>
-
-    <v-row class="px-3">
+  <v-container>
+    <v-row
+      justify="center"
+      class="px-3 pt-3"
+    >
+      <h1 class="heading">
+        Submissions
+      </h1>
       <v-spacer />
       <v-btn
-        outlined
+        text
+        class="mr-1"
         @click="update"
       >
         <v-icon left>
           mdi-refresh
         </v-icon>
         refresh
+      </v-btn>
+      <v-btn
+        depressed
+        color="primary"
+        :to="{name: 'MemberSubmit'}"
+      >
+        <v-icon left>
+          mdi-file-document-box-plus
+        </v-icon>
+        submit
       </v-btn>
     </v-row>
 

@@ -28,6 +28,7 @@
             </v-toolbar-title>
             <v-spacer />
             <v-avatar
+              v-if="step <= 6"
               color="primary darken-1"
               class="subheading white--text font-weight-bold"
               size="36"

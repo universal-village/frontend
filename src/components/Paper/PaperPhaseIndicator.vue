@@ -1,6 +1,8 @@
 <template>
-  <v-chip color="state.color">
-    <v-icon left>
+  <v-chip :color="state.color">
+    <v-icon
+      left
+    >
       {{ state.icon }}
     </v-icon>
     {{ state.text }}
@@ -20,28 +22,34 @@
       state () {
         const MAP = [
           {
-            id: "Reject",
+            id: "REJECT",
             color: "error",
             text: "Rejected",
             icon: "mdi-close-circle",
           },
           {
-            id: "Need-Review",
+            id: "IN_PROGRESS",
             color: "warning",
-            text: "Need Review",
+            text: "In Progress",
             icon: "mdi-dots-horizontal",
           },
           {
-            id: "Accept",
+            id: "ACCEPT",
             color: "success",
             text: "Accepted",
             icon: "mdi-check-circle",
           },
           {
-            id: "Draft",
-            color: "grey",
+            id: "DRAFT",
+            color: "grey darken-3 white--text",
             text: "Draft",
-            icon: "mdi-file",
+            icon: "mdi-file-edit",
+          },
+          {
+            id: "CAMERA_READY",
+            color: "green",
+            text: "Camera Ready",
+            icon: "mdi-file-check",
           },
         ];
 

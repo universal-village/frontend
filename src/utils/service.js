@@ -78,7 +78,7 @@ service.interceptors.response.use(response => {
       } else {
         // jwt has been rejected
         // try to refresh the token
-        store.dispatch('account/refreshToken')
+        return store.dispatch('account/refreshToken')
           .then(() => {
             let config = error.config;
             config.url = config.url.replace("/api", "");
