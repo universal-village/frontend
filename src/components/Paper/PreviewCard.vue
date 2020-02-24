@@ -1,16 +1,22 @@
 <template>
-  <v-card>
+  <v-card style="overflow: hidden; border-top: 3px solid #4EA95E;">
     <span
-      style="position: absolute; top: .4em; right: .4em; color: rgba(0, 0, 0, .05); user-select: none; z-index: 0"
-      class="display-3 font-weight-black"
+      class="display-3 font-weight-black preview-card--background"
     >
-      #{{ content.id }}
+      <small style="font-size: .6em; color: rgba(0, 0, 0, .05)">PAPER#</small>{{ content.id }}
     </span>
-    <v-card-title style="word-break: break-word">
+    <v-card-title
+      class="title grey lighten-3"
+      style="word-break: break-word"
+    >
       <span style="z-index: 1">{{ content.title }}</span>
+      <v-spacer />
     </v-card-title>
     <v-card-text>
-      <v-list three-line>
+      <v-list
+        two-line
+        dense
+      >
         <v-list-item>
           <v-list-item-action>
             <v-icon>
@@ -68,7 +74,7 @@
         <v-list-item>
           <v-list-item-action>
             <v-icon>
-              mdi-alert-circle
+              mdi-note-text
             </v-icon>
           </v-list-item-action>
 
@@ -83,26 +89,51 @@
         </v-list-item>
       </v-list>
     </v-card-text>
-    <v-card-actions>
-      <v-btn icon>
-        <v-icon>
-          mdi-eye
-        </v-icon>
-      </v-btn>
-      <v-spacer />
-      <v-btn icon>
-        <v-icon>
-          mdi-pencil
-        </v-icon>
-      </v-btn>
-      <v-btn
-        color="error"
-        icon
-      >
-        <v-icon>
-          mdi-delete
-        </v-icon>
-      </v-btn>
+    <v-card-actions class="grey lighten-4 justify-space-around">
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            icon
+            style="padding: 0;"
+            v-on="on"
+          >
+            <v-icon>
+              mdi-pencil
+            </v-icon>
+          </v-btn>
+        </template>
+        Edit
+      </v-tooltip>
+
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            color="error"
+            icon
+            style="padding: 0;"
+            v-on="on"
+          >
+            <v-icon>
+              mdi-delete
+            </v-icon>
+          </v-btn>
+        </template>
+        Delete
+      </v-tooltip>
+
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            icon
+            style="padding: 0;"
+            color="blue"
+            v-on="on"
+          >
+            <v-icon>mdi-send</v-icon>
+          </v-btn>
+        </template>
+        Submit
+      </v-tooltip>
     </v-card-actions>
   </v-card>
 </template>
@@ -129,5 +160,13 @@
 </script>
 
 <style scoped>
-
+span.preview-card--background {
+  position: absolute;
+  top: .3em;
+  right: .3em;
+  color: rgba(0, 0, 0, .1);
+  user-select: none;
+  z-index: 0;
+  letter-spacing: -.05em !important;
+}
 </style>

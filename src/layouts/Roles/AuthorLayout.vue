@@ -3,13 +3,13 @@
     name="slide-fade"
     mode="out-in"
   >
-    <router-view name="member" />
+    <router-view name="author" />
   </transition>
 </template>
 
 <script>
   export default {
-    name: "MemberLayout",
+    name: "AuthorLayout",
   };
 </script>
 

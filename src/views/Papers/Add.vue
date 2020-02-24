@@ -136,6 +136,28 @@
                   Email: {{ authorsChip(item).email }}
                 </v-tooltip>
               </template>
+              <template v-slot:append-outer>
+                <v-tooltip
+                  top
+                >
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      small
+                      text
+                      icon
+                      style="top: -2px"
+                      v-on="on"
+                    >
+                      <v-icon>
+                        mdi-account-multiple-plus
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  <span>
+                    Add an author who doesn't have an UV account yet
+                  </span>
+                </v-tooltip>
+              </template>
             </v-combobox>
             <v-btn
               color="primary"
@@ -204,7 +226,7 @@
               Now you can go to <v-btn
                 outlined
                 small
-                :to="{name: 'Dashboard'}"
+                :to="{name: 'AuthorSubmissions'}"
               >
                 <v-icon
                   left
@@ -338,9 +360,13 @@
               .then(response => {
                 load(response);
                 console.debug('Uploaded successfully', response);
-                setTimeout(() => {
-                  this.step += 1;
-                }, 1000);
+                return this.updatePaper(response.data.fileUrl)
+                  .then(() => {
+                    this.step += 1;
+                  })
+                  .catch((err) => {
+                    console.error(err);
+                  });
               })
               .catch(failure => {
                 console.debug('Failed to upload file', failure);
@@ -375,7 +401,7 @@
               for (const user of this.authorsError.proof) {
                 users.push(`'${user.user}'`);
               }
-              return `Author ${users.join(", ")} ${users.length === 1 ? 'is' : 'are'} not${users.length === 1 ? ' a' : ''} valid registered ${users.length === 1 ? 'user' : 'users'}.`;
+              return `Author ${users.join(", ")} ${users.length === 1 ? 'is' : 'are'} not${users.length === 1 ? ' a' : ''} valid registered ${users.length === 1 ? 'user' : 'users'}. Please contact them to register a UV account.`;
             } else if (this.authorsError.reason === "SERVER_ERROR") {
               return `Format: One of the E-mail provided is invalid`;
             } else {
@@ -429,20 +455,45 @@
         this.paper.submitting = true;
 
         api.papers.submit(marshalled)
-        .then(({data}) => {
-          console.log(data);
+          .then(({data}) => {
+            console.log(data);
 
-          this.paper.id = data.paperId;
-          console.log(this.paper);
-          this.step += 1;
-        })
-        .catch((err) => {
-          console.error(err);
-          alert(err);
-        })
-        .finally(() => {
-          this.paper.submitting = false;
-        });
+            this.paper.id = data.paperId;
+            console.log(this.paper);
+            this.step += 1;
+          })
+          .catch((err) => {
+            console.error(err);
+            alert(err);
+          })
+          .finally(() => {
+            this.paper.submitting = false;
+          });
+      },
+
+      updatePaper (link) {
+        let marshalled = marshal.paper(this.$v.form.$model);
+        marshalled = {
+          ...marshalled,
+          ...{
+            link,
+          },
+        };
+        console.log(marshalled);
+
+        this.paper.submitting = true;
+
+        return api.papers.update(this.paper.id, marshalled)
+          .then(({data}) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.error(err);
+            alert(err);
+          })
+          .finally(() => {
+            this.paper.submitting = false;
+          });
       },
 
       getCategories() {
@@ -486,7 +537,7 @@
                 text: `${item} (invalid)`,
                 email: item,
               };
-            } else if (!this.$v.form.authors.$each.$invalid || !this.$v.form.authors.$pending) {
+            } else if (!this.$v.form.authors.$each.$invalid && !this.$v.form.authors.$pending) {
               return {
                 color: "success",
                 text: name,

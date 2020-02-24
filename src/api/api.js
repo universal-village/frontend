@@ -48,6 +48,10 @@ export default {
       return service
         .post("/papers", data);
     },
+    update: (paperId, data) => {
+      return service
+        .put(`/papers/${paperId}`, data);
+    },
     upload: (paperId, file, progress) => {
       const formData = new FormData();
       formData.append("paperId", paperId);

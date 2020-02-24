@@ -1,5 +1,8 @@
 <template>
-  <v-app>
+  <v-app
+    class="background"
+    :class="{'login-background': $route.meta.background === 'login'}"
+  >
     <!--    <v-app-bar-->
     <!--      app-->
     <!--      color="indigo"-->
@@ -22,15 +25,24 @@
       app
       width="300"
     >
-      <v-list-item :to="{name: 'Dashboard'}">
+      <v-list-item
+        @click="$router.push({name: 'Dashboard'})"
+      >
         <v-list-item-content>
-          <v-list-item-title class="title">
+          <v-list-item-title class="title py-4">
             <v-img
               :src="require('@/assets/logo.png')"
               :aspect-ratio="5.513"
-              height="100"
+              height="80"
+              class="mx-12"
               contain
             />
+            <h2 class="overline text-center">
+              {{ $config.conference.name.long }}
+            </h2>
+            <h1 class="title text-center">
+              Submittion System
+            </h1>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -47,7 +59,7 @@
           :key="route.path"
         >
           <v-list-item
-            v-if="!route.children || route.meta.forceSingle"
+            v-if="!route.children"
             :key="route.path"
             :to="{path: route.path}"
           >
@@ -56,12 +68,26 @@
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>
-                {{ $t(route.meta.title) }} &nbsp; <v-icon
-                  v-if="!route.component && !route.meta.forceSingle"
+                {{ route.meta.title }} &nbsp; <v-icon
+                  v-if="!route.component"
                   small
                 >
                   mdi-open-in-new
                 </v-icon>
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item
+            v-else-if="route.meta.forceSingle"
+            :key="route.children[0].name"
+            :to="{name: route.children[0].name}"
+          >
+            <v-list-item-icon>
+              <v-icon v-text="route.children[0].meta.icon" />
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>
+                {{ route.children[0].meta.title }}
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -81,7 +107,7 @@
               :to="{name: child.name}"
             >
               <v-list-item-title>
-                {{ child.meta.title }}
+                <span class="mr-2 grey--text">—</span> {{ child.meta.title }}
               </v-list-item-title>
 
               <v-list-item-icon>
@@ -100,31 +126,26 @@
           flat
           tile
           width="100%"
-          class="text-center"
+          class="text-center grey lighten-2"
         >
-          <v-divider />
-
           <v-card-text>
-            {{ new Date().getFullYear() }} — <strong>Universal Village</strong> <v-btn
-              icon
-              href="https://github.com/universal-village/frontend"
-              target="_blank"
+            <span
+              class="overline"
+              style="font-size: 1.5em"
             >
-              <v-icon>
-                mdi-github-circle
-              </v-icon>
-            </v-btn>
+              <span class="monospace mr-2">{{ $config.conference.identifier }}</span>
+              <small style="letter-spacing: -.03em; text-transform: none;">ver.</small><span class="monospace">f91e7afd</span>
+            </span>
           </v-card-text>
         </v-card>
       </v-footer>
     </v-navigation-drawer>
 
     <v-app-bar
+      v-if="drawerPermitted"
       color="primary"
       app
       dark
-
-      src="https://picsum.photos/1920/1080?random"
     >
       <template v-slot:img="{ props }">
         <v-img
@@ -148,7 +169,9 @@
 
       <AccountNavButton />
 
-      <template v-slot:extension>
+      <template
+        v-slot:extension
+      >
         <v-breadcrumbs :items="routeBreadcrumbs" />
       </template>
     </v-app-bar>
@@ -189,7 +212,7 @@
         },
       },
       drawerPermitted () {
-        return this.$store.getters['account/isLoggedIn'];
+        return this.$store.getters['account/isLoggedIn'] && this.$store.getters['account/details'];
       },
       routeBreadcrumbs () {
         let breadcrumbs = [];
@@ -240,5 +263,20 @@
     /* .slide-fade-leave-active for below version 2.1.8 */ {
     transform: translateY(2vh);
     opacity: 0;
+  }
+
+  .background {
+    transition: background-image 1s ease-out;
+  }
+
+  .login-background {
+    background-image: url("assets/login-background.jpg") !important;
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+
+  .monospace {
+    font-family: SF Mono, Consolas, Monospaced, Courier New, monospace;
+    letter-spacing: 0;
   }
 </style>

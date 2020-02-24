@@ -11,14 +11,14 @@ import DashboardIndex from "./views/Dashboard/Index";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Register from "./views/Account/Register";
 import PaperIndex from "./views/Papers/List";
-import AssignReviewer from "./views/Chair/AssignReviewer";
-import ReviewPaper from "./views/Reviewer/ReviewPaper";
 import PaperAdd from "./views/Papers/Add";
 import ConferenceRegistration from "./views/Member/ConferenceRegistration";
-import ChairLayout from "./layouts/Roles/ChairLayout";
-import ReviewerLayout from "./layouts/Roles/ReviewerLayout";
-import MemberLayout from "./layouts/Roles/MemberLayout";
+import AuthorLayout from "./layouts/Roles/AuthorLayout";
 import NotFound from "./views/Error/NotFound";
+import ChairLayout from "./layouts/Roles/ChairLayout";
+import AssignReviewer from "./views/Chair/AssignReviewer";
+import ReviewerLayout from "./layouts/Roles/ReviewerLayout";
+import ReviewPaper from "./views/Reviewer/ReviewPaper";
 
 Vue.use(Router);
 
@@ -47,6 +47,7 @@ const router = new Router({
         title: 'Dashboard',
         icon: "mdi-view-dashboard-variant",
         acl: [acl.USER],
+        forceSingle: true,
       },
       children: [
         {
@@ -58,6 +59,58 @@ const router = new Router({
           meta: {
             title: "Home",
             icon: "mdi-home",
+            acl: [acl.USER],
+          },
+        },
+      ],
+    },
+    {
+      path: '/author',
+      components: {
+        default: AuthorLayout,
+      },
+      meta: {
+        title: "Author",
+        icon: "mdi-account-multiple",
+        acl: [acl.USER],
+        active: true,
+      },
+      children: [
+        {
+          path: 'submit',
+          name: 'AuthorSubmit',
+          components: {
+            author: PaperAdd,
+          },
+          meta: {
+            title: "Submit Paper",
+            icon: "mdi-file-document-box-plus",
+            acl: [acl.USER],
+          },
+        },
+
+        {
+          path: 'submissions',
+          name: 'AuthorSubmissions',
+          components: {
+            author: PaperIndex,
+          },
+          meta: {
+            title: "My Submissions",
+            icon: "mdi-file-document-box-multiple",
+            acl: [acl.USER],
+          },
+        },
+
+        {
+          path: 'registration',
+          name: 'AuthorConferenceRegistration',
+          components: {
+            author: ConferenceRegistration,
+          },
+          meta: {
+            title: "Conference Registration",
+            icon: "mdi-credit-card",
             acl: [acl.USER],
           },
         },
@@ -114,58 +167,6 @@ const router = new Router({
       ],
     },
     {
-      path: '/member',
-      components: {
-        default: MemberLayout,
-      },
-      meta: {
-        title: "Member",
-        icon: "mdi-account-multiple",
-        acl: [acl.USER],
-        active: true,
-      },
-      children: [
-        {
-          path: 'submit',
-          name: 'MemberSubmit',
-          components: {
-            member: PaperAdd,
-          },
-          meta: {
-            title: "Submit Paper",
-            icon: "mdi-file-document-box-plus",
-            acl: [acl.USER],
-          },
-        },
-
-        {
-          path: 'submissions',
-          name: 'MemberSubmissions',
-          components: {
-            member: PaperIndex,
-          },
-          meta: {
-            title: "My Submissions",
-            icon: "mdi-file-document-box-multiple",
-            acl: [acl.USER],
-          },
-        },
-
-        {
-          path: 'registration',
-          name: 'MemberConferenceRegistration',
-          components: {
-            member: ConferenceRegistration,
-          },
-          meta: {
-            title: "Conference Registration",
-            icon: "mdi-credit-card",
-            acl: [acl.USER],
-          },
-        },
-      ],
-    },
-    {
       path: '/account',
       components: {
         default: AccountLayout,
@@ -200,6 +201,7 @@ const router = new Router({
             icon: "mdi-exit-to-app",
             hide: true,
             acl: [acl.GUEST],
+            background: "login",
           },
         },
         {
@@ -212,6 +214,7 @@ const router = new Router({
             title: "Register",
             hide: true,
             acl: [acl.GUEST],
+            background: "login",
           },
         },
       ],

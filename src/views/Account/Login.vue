@@ -1,8 +1,40 @@
 <template>
   <v-container
-    class="align-content-center fill-height"
+    class="fill-height align-content-center justify-center"
     fluid
   >
+    <v-row
+      align="center"
+      justify="center"
+    >
+      <v-col
+        cols="12"
+        sm="10"
+        md="8"
+        lg="6"
+      >
+        <v-img
+          :src="require('@/assets/logo.png')"
+          :aspect-ratio="5.513"
+          max-width="200px"
+          contain
+          class="mx-auto mb-3"
+        >
+          <template v-slot:placeholder>
+            <v-row
+              class="fill-height ma-0"
+              align="center"
+              justify="center"
+            >
+              <v-progress-circular
+                indeterminate
+                color="primary lighten-1"
+              />
+            </v-row>
+          </template>
+        </v-img>
+      </v-col>
+    </v-row>
     <v-row
       align="center"
       justify="center"

@@ -22,9 +22,11 @@
 
     <v-data-iterator
       v-else
+      :items-per-page="6"
       :items="papers"
+      :footer-props="{'items-per-page-options': [6, 12, 18, -1]}"
 
-      sort-by="meta.created"
+      sort-by="paperId"
       sort-desc
     >
       <template v-slot:default="props">
@@ -52,7 +54,7 @@
           No paper has been submitted yet. <v-btn
             outlined
             small
-            :to="{name: 'MemberSubmit'}"
+            :to="{name: 'AuthorSubmit'}"
           >
             submit a paper
           </v-btn>

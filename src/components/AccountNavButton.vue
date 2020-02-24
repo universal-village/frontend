@@ -10,6 +10,7 @@
 
     <v-menu
       v-else
+      :close-delay="50"
       open-on-hover
       :close-on-content-click="false"
       top

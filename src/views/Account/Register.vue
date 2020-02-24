@@ -14,6 +14,27 @@
         lg="8"
         xl="8"
       >
+        <v-img
+          :src="require('@/assets/logo.png')"
+          :aspect-ratio="5.513"
+          max-width="200px"
+          contain
+          class="mx-auto mb-6"
+        >
+          <template v-slot:placeholder>
+            <v-row
+              class="fill-height ma-0"
+              align="center"
+              justify="center"
+            >
+              <v-progress-circular
+                indeterminate
+                color="primary lighten-1"
+              />
+            </v-row>
+          </template>
+        </v-img>
+        
         <v-card
           class="mx-auto"
           max-width="800"
@@ -48,9 +69,9 @@
                     src="../../assets/logo.png"
                   />
                   <h3 class="title font-weight-light mb-2">
-                    Register for Universal Village member account
+                    Register for Universal Village account
                   </h3>
-                  <span class="caption grey--text">We will be asking for the information that will be used to identify you as our member. Your personal information will not be disclosed to any third-party.</span>
+                  <span class="caption grey--text">We will be asking for the information that will be used to identify you. Your personal information will not be disclosed to any third-party.</span>
                 </div>
               </v-window-item>
 
@@ -318,7 +339,7 @@
                     Welcome to Universal Village!
                   </h3>
                   <span class="caption grey--text">
-                    Thanks for signing up as a member!
+                    Thanks for signing up!
                   </span><br>
                   <span class="caption grey--text">
                     Now you can submit a paper or register for a UV conference by heading to your dashboard.

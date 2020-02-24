@@ -15,6 +15,8 @@ Vue.use(VuetifyGoogleAutocomplete, {
   apiKey: config.credentials.googleMapsApiKey,
 });
 
+Vue.prototype.$config = config;
+
 new Vue({
   store,
   router,

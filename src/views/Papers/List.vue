@@ -8,26 +8,29 @@
         Submissions
       </h1>
       <v-spacer />
-      <v-btn
-        text
-        class="mr-1"
-        @click="update"
-      >
-        <v-icon left>
-          mdi-refresh
-        </v-icon>
-        refresh
-      </v-btn>
-      <v-btn
-        depressed
-        color="primary"
-        :to="{name: 'MemberSubmit'}"
-      >
-        <v-icon left>
-          mdi-file-document-box-plus
-        </v-icon>
-        submit
-      </v-btn>
+      <template v-if="!$vuetify.breakpoint.xs">
+        <v-btn
+          text
+          class="mr-1"
+          @click="update"
+        >
+          <v-icon left>
+            mdi-refresh
+          </v-icon>
+          refresh
+        </v-btn>
+      </template>
+      <template v-else>
+        <v-btn
+          icon
+          class="mr-1"
+          @click="update"
+        >
+          <v-icon>
+            mdi-refresh
+          </v-icon>
+        </v-btn>
+      </template>
     </v-row>
 
     <v-row

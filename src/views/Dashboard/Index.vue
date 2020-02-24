@@ -78,7 +78,7 @@
               <v-icon left>
                 mdi-account-circle
               </v-icon>
-              As {{ child.as }}
+              as {{ child.as.startsWith("A") ? "an" : "a" }} {{ child.as }}
             </v-chip>
             <!--            <span class="headline grey&#45;&#45;text text&#45;&#45;darken-3 ml-4 font-weight-black">-->
             <!--              x5-->
@@ -128,37 +128,41 @@
         }
 
         routes.push({
-            "route": "MemberSubmit",
+            "route": "AuthorSubmit",
             "title": "Submit Paper",
             "subtitle": "Submit a new paper to the conference",
             "icon": "mdi-file-document-box-plus",
-            "as": "Member",
+            "as": "Author",
           },
           {
-            "route": "MemberSubmissions",
+            "route": "AuthorSubmissions",
             "title": "My Submissions",
             "subtitle": "View the statuses of previous paper submissions",
             "icon": "mdi-file-document-box-multiple",
-            "as": "Member",
+            "as": "Author",
           });
 
         return routes;
       },
       rolesText () {
         let roles = [];
-        if (this.roles.includes("CategoryChair")) {
-          roles.push(`The Category Chair of "${this.details.categoryChair.category.name}"`);
-        }
-        if (this.roles.includes("Reviewer")) {
-          roles.push(`The Paper Reviewer of "${this.details.reviewer.category.name}"`);
-        }
-        if (this.roles.includes("Attendee")) {
-          let tags = [];
-          tags.push("A conference attendee as a");
-          (this.details.attendee.isStudent === "true") && tags.push("student");
-          (this.details.attendee.isStudent === "true" && this.details.attendee.isSenior === "true") && tags.push("and");
-          (this.details.attendee.isSenior === "true") && tags.push("senior");
-          roles.push(tags.join(" "));
+        if (this.details) {
+          if (this.roles.includes("CategoryChair")) {
+            // roles.push(`The Category Chair of "${this.details.categoryChair.category.name}"`);
+            roles.push("A Category Chair");
+          }
+          if (this.roles.includes("Reviewer")) {
+            // roles.push(`The Paper Reviewer of "${this.details.reviewer.category.name}"`);
+            roles.push("A Paper Reviewer");
+          }
+          if (this.roles.includes("Attendee")) {
+            let tags = [];
+            tags.push("A registered conference attendee as a");
+            (this.details.attendee.isStudent === "YES") && tags.push("student");
+            (this.details.attendee.isStudent === "YES" && this.details.attendee.isSenior === "YES") && tags.push("and");
+            (this.details.attendee.isSenior === "YES") && tags.push("senior");
+            roles.push(tags.length === 1 ? "A registered conference attendee" : tags.join(" "));
+          }
         }
         return roles;
       },
