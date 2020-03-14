@@ -47,13 +47,19 @@ export default {
                 commit('updateDetails', data);
                 resolve();
               })
-              .catch(err => {
+              .catch(error => {
                 dispatch('logout');
-                reject(err);
+                reject({
+                  type: "FETCH_DETAIL",
+                  error,
+                });
               });
           })
-          .catch(err => {
-            reject(err);
+          .catch(error => {
+            reject({
+              type: "CREDENTIALS",
+              error,
+            });
           });
       });
     },

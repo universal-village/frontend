@@ -1,5 +1,8 @@
 <template>
-  <v-card style="overflow: hidden; border-top: 3px solid #4EA95E;">
+  <v-card
+    class="d-flex flex-column"
+    style="overflow: hidden; border-top: 3px solid #4EA95E;"
+  >
     <span
       class="display-3 font-weight-black preview-card--background"
     >
@@ -12,7 +15,7 @@
       <span style="z-index: 1">{{ content.title }}</span>
       <v-spacer />
     </v-card-title>
-    <v-card-text>
+    <v-card-text class="flex-grow-1">
       <v-list
         two-line
         dense
@@ -20,7 +23,7 @@
         <v-list-item>
           <v-list-item-action>
             <v-icon>
-              mdi-file
+              mdi-shape
             </v-icon>
           </v-list-item-action>
 
@@ -28,14 +31,16 @@
             <v-list-item-title>
               Category
             </v-list-item-title>
-            <v-list-item-subtitle>{{ content.category.name }}</v-list-item-subtitle>
+            <v-list-item-subtitle class="nowrap">
+              {{ content.category.name }}
+            </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
         <v-list-item>
           <v-list-item-action>
             <v-icon>
-              mdi-file
+              mdi-file-document-box-outline
             </v-icon>
           </v-list-item-action>
 
@@ -43,7 +48,9 @@
             <v-list-item-title>
               Abstract
             </v-list-item-title>
-            <v-list-item-subtitle>{{ content.paperAbstract }}</v-list-item-subtitle>
+            <v-list-item-subtitle class="nowrap">
+              {{ content.paperAbstract }}
+            </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
@@ -55,10 +62,10 @@
           </v-list-item-action>
 
           <v-list-item-content>
-            <v-list-item-title class="monospace">
+            <v-list-item-title>
               Keywords
             </v-list-item-title>
-            <v-list-item-subtitle>
+            <v-list-item-subtitle class="nowrap">
               <v-chip
                 v-for="keyword in content.keywords"
                 :key="keyword"
@@ -74,6 +81,31 @@
         <v-list-item>
           <v-list-item-action>
             <v-icon>
+              mdi-account-multiple
+            </v-icon>
+          </v-list-item-action>
+
+          <v-list-item-content>
+            <v-list-item-title>
+              Authors
+            </v-list-item-title>
+            <v-list-item-subtitle class="nowrap">
+              <span
+                v-for="author in content.authors"
+                :key="author.userId"
+                class="d-inline-block mb-1 mr-1"
+              >
+                <UserChip
+                  :user="author"
+                />
+              </span>
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item v-if="!previewOnly">
+          <v-list-item-action>
+            <v-icon>
               mdi-note-text
             </v-icon>
           </v-list-item-action>
@@ -82,78 +114,61 @@
             <v-list-item-title>
               Phase
             </v-list-item-title>
-            <v-list-item-subtitle>
+            <v-list-item-subtitle class="nowrap">
               <PaperPhaseIndicator :phase="content.phase" />
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-card-text>
-    <v-card-actions class="grey lighten-4 justify-space-around">
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn
-            icon
-            style="padding: 0;"
-            v-on="on"
-          >
-            <v-icon>
-              mdi-pencil
-            </v-icon>
-          </v-btn>
-        </template>
-        Edit
-      </v-tooltip>
-
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn
-            color="error"
-            icon
-            style="padding: 0;"
-            v-on="on"
-          >
-            <v-icon>
-              mdi-delete
-            </v-icon>
-          </v-btn>
-        </template>
-        Delete
-      </v-tooltip>
-
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn
-            icon
-            style="padding: 0;"
-            color="blue"
-            v-on="on"
-          >
-            <v-icon>mdi-send</v-icon>
-          </v-btn>
-        </template>
-        Submit
-      </v-tooltip>
+    <v-card-actions
+      class="grey lighten-4 justify-space-around"
+      style="border-radius: 0"
+    >
+      <slot name="actions" />
     </v-card-actions>
+    <v-sheet
+      v-if="!content.canEdit"
+      color="grey lighten-3"
+      class="caption align-center d-flex px-2 py-1 justify-center"
+      tile
+    >
+      <v-icon
+        small
+        class="mr-1"
+      >
+        mdi-information
+      </v-icon>
+      <span>
+        You cannot edit a paper once you have submitted it.
+      </span>
+    </v-sheet>
   </v-card>
 </template>
 
 <script>
-  import unmarshal from "../../utils/unmarshal";
   import PaperPhaseIndicator from "./PaperPhaseIndicator";
+  import UserChip from "../account/UserChip";
 
   export default {
     name: "PreviewCard",
-    components: {PaperPhaseIndicator},
+    components: {UserChip, PaperPhaseIndicator},
     props: {
       paper: {
         type: Object,
         required: true,
       },
+      /** Ignore current states */
+      previewOnly: {
+        type: Boolean,
+        default () {
+          return false;
+        },
+      },
     },
     computed: {
       content () {
-        return unmarshal.paper(this.paper);
+        return this.paper;
       },
     },
   };
@@ -169,4 +184,7 @@ span.preview-card--background {
   z-index: 0;
   letter-spacing: -.05em !important;
 }
+  .nowrap {
+    white-space: normal !important;
+  }
 </style>

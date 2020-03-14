@@ -177,6 +177,7 @@
     </v-app-bar>
 
     <v-content id="content">
+      <GlobalSnackbar />
       <transition
         name="slide-fade"
         mode="out-in"
@@ -188,10 +189,11 @@
 </template>
 
 <script>
-  import AccountNavButton from "./components/AccountNavButton";
+  import AccountNavButton from "./components/account/AccountNavButton";
+  import GlobalSnackbar from "./components/global/GlobalSnackbar";
 
   export default {
-    components: {AccountNavButton},
+    components: {GlobalSnackbar, AccountNavButton},
     data() {
       return {
         rawDrawer: false,

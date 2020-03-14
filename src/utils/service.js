@@ -70,30 +70,34 @@ service.interceptors.response.use(response => {
     // }
 
     if (error.response.status === 403 || error.response.status === 401) {
-      if (isAuthEndpoint(error.config.url)) {
-        // this IS the refresh token doing its job but it fails
-        // maybe because the refresh token has expired
-        // let user login again
+      if (error.config.url.includes("/auth/refresh")) {
+        // this IS the refresh token doing its job but it has failed to so
+        // because the refresh token has expired. let the user login again
         redirectLogin();
-      } else {
+      } else if (!error.config.url.includes("/auth/login")) {
         // jwt has been rejected
         // try to refresh the token
         return store.dispatch('account/refreshToken')
           .then(() => {
+            // succeeded. retry request
             let config = error.config;
             config.url = config.url.replace("/api", "");
             return service.request(config);
           })
           .catch(() => {
+            // failed. let user login again.
             redirectLogin();
           });
       }
     }
 
-    if ([401, 403, 404, 500, 502, 503, 504].includes(error.response.status)) {
+    if ([400, 401, 403, 404, 500, 502, 503, 504].includes(error.response.status)) {
       error.errorMessage = i18n.t(`message.network.status.response.${error.response.status}`);
     } else {
       error.errorMessage = `${i18n.t('message.network.status.response.default')} (${error.response.status || -1})`;
+    }
+    if (error.response.data.message) {
+      error.errorMessage += `: ${error.response.data.message}`;
     }
   } else if (error.request) {
     // The request was made but no response was received

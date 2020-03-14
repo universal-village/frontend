@@ -20,6 +20,8 @@
           max-width="200px"
           contain
           class="mx-auto mb-6"
+          style="cursor: pointer"
+          @click="$router.push({path: '/'})"
         >
           <template v-slot:placeholder>
             <v-row
@@ -254,7 +256,7 @@
                     v-model="organization"
 
                     label="Organization*"
-                    prepend-icon="mdi-account-multiple"
+                    prepend-icon="mdi-domain"
 
                     autocomplete="organization"
                     required

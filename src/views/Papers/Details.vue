@@ -42,8 +42,6 @@
         <PaperList
           :papers="papers"
           :loading="isBusy"
-
-          @change="update"
         />
       </v-col>
     </v-row>
@@ -51,17 +49,15 @@
 </template>
 
 <script>
+  import { mapGetters } from "vuex";
   import PaperList from "../../components/paper/PaperList";
   import api from "../../api/api";
-  import snackbar from "../../utils/snackbar";
-  import unmarshal from "../../utils/unmarshal";
   export default {
     name: "MySubmissions",
     components: {PaperList},
     data() {
       return {
         papers: [],
-        isBusy: false,
       };
     },
     created () {
@@ -69,19 +65,17 @@
     },
     methods: {
       update () {
-        this.isBusy = true;
         api.papers.list()
           .then(({data}) => {
-            this.papers = data.map(el => {
-              return unmarshal.paper(el);
-            });
+            this.papers = data;
           })
           .catch(err => {
             console.error(err);
-            snackbar.error(`Failed to fetch paper list: ${err.errorMessage}`);
-          })
-        .finally(() => this.isBusy = false);
+          });
       },
+    },
+    computed: {
+      ...mapGetters("network", ["isBusy"]),
     },
   };
 </script>

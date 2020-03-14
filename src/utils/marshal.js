@@ -63,7 +63,7 @@ export default {
       city: get("locality", address),
       state: get("administrative_area_level_1", address),
 
-      cellphone: phone,
+      telephone: phone,
       needSupport: visa.toString(),
       passport,
     };
@@ -84,5 +84,23 @@ export default {
       categoryId: category,
       authors: authors.join(","),
     };
+  },
+  name: (
+    {
+      title,
+      firstName,
+      middleName,
+      lastName,
+    }
+  ) => {
+    title = title ? (title.includes('.') ? `${title}` : `${title}.` ) : '';
+
+    const fragments = [
+      title,
+      firstName,
+    ];
+    if (middleName !== "") fragments.push(middleName);
+    fragments.push(lastName);
+    return fragments.join(" ");
   },
 };

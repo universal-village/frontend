@@ -4,7 +4,7 @@
       <v-col
         cols="12"
       >
-        <h1 class="title">
+        <h1 class="heading">
           Submit a New Paper
         </h1>
       </v-col>
@@ -130,6 +130,20 @@
                       @click:close="parent.selectItem(item)"
                       v-on="on"
                     >
+                      <v-icon
+                        v-if="authorsChip(item).color === 'error'"
+                        small
+                        left
+                      >
+                        mdi-alert-circle-outline
+                      </v-icon>
+                      <v-icon
+                        v-else-if="authorsChip(item).color === 'success'"
+                        small
+                        left
+                      >
+                        mdi-check-circle-outline
+                      </v-icon>
                       {{ authorsChip(item).text }}
                     </v-chip>
                   </template>
@@ -138,15 +152,16 @@
               </template>
               <template v-slot:append-outer>
                 <v-tooltip
-                  top
+                  left
+                  transition="slide-x-reverse-transition"
                 >
                   <template v-slot:activator="{ on }">
                     <v-btn
-                      small
                       text
                       icon
-                      style="top: -2px"
+                      style="top: -6px"
                       v-on="on"
+                      @click="addAuthorDialog = true"
                     >
                       <v-icon>
                         mdi-account-multiple-plus
@@ -159,6 +174,13 @@
                 </v-tooltip>
               </template>
             </v-combobox>
+            <v-dialog
+              v-model="addAuthorDialog"
+              scrollable
+              max-width="450px"
+            >
+              <RegisterPartialAuthor @registered="addAuthor" />
+            </v-dialog>
             <v-btn
               color="primary"
               :disabled="$v.form.$invalid"
@@ -196,11 +218,21 @@
                 :server="server"
                 :file-list="fileList"
                 :accepted-file-types="['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/pdf']"
-                max-file-size="5MB"
+                max-file-size="10MB"
                 label-idle="Drag & Drop your paper or <span class=&quot;filepond--label-action&quot;> Browse </span><br><span class='caption'>Only accepts <span class='overline'>Word</span> and <span class='overline'>PDF</span> file</span>"
                 file-validate-type-label-expected-types="Only accepts .doc, .docx and .pdf file"
                 @updatefiles="uploadFile"
               />
+              <v-expand-transition>
+                <v-alert
+                  v-if="paper.submitting"
+                  type="info"
+                  border="left"
+                >
+                  <v-progress-circular indeterminate />
+                  Submitting...
+                </v-alert>
+              </v-expand-transition>
             </v-col>
           </v-stepper-content>
 
@@ -257,10 +289,13 @@
   import {validationMixin} from 'vuelidate';
   import {required, maxLength, email} from 'vuelidate/lib/validators';
   import marshal from "../../utils/marshal";
+  import RegisterPartialAuthor from "../../components/account/RegisterPartialAuthor";
+  import snackbar from "../../utils/snackbar";
 
   export default {
     name: "PaperAdd",
     components: {
+      RegisterPartialAuthor,
       FilePond,
     },
     mixins: [validationMixin],
@@ -285,7 +320,6 @@
           registered (value) {
             // standalone validator ideally should not assume a field is required
             if (value === '') return true;
-            console.log(this.$v.form.authors.$model.length === 0, this.$v.form.authors.$each.$invalid);
             if (this.$v.form.authors.$model.length === 0 || this.$v.form.authors.$each.$invalid) return false;
 
             // simulate async call, fail for all logins with even length
@@ -319,6 +353,13 @@
               });
             }));
           },
+          haveSelf (value) {
+            // standalone validator ideally should not assume a field is required
+            if (value === '') return true;
+            if (this.$v.form.authors.$model.length === 0 || this.$v.form.authors.$each.$invalid) return false;
+
+            return this.$v.form.authors.$model.includes(this.$store.getters["account/email"]);
+          },
         },
         category: {
           required,
@@ -335,12 +376,15 @@
         form: {
           title: "",
           abstract: "",
-          authors: [],
+          authors: [
+            this.$store.getters["account/email"],
+          ],
           keywords: [],
           category: null,
         },
         authorsError: null,
         authorsLastSuccess: null,
+        addAuthorDialog: false,
         prefill: {
           categories: [],
           categoriesFetching: true,
@@ -381,6 +425,10 @@
       this.getCategories();
     },
     methods: {
+      addAuthor ({email}) {
+        this.form.authors.push(email);
+        this.addAuthorDialog = false;
+      },
       errors (key) {
         const errors = [];
         const fieldsMap = {
@@ -401,9 +449,9 @@
               for (const user of this.authorsError.proof) {
                 users.push(`'${user.user}'`);
               }
-              return `Author ${users.join(", ")} ${users.length === 1 ? 'is' : 'are'} not${users.length === 1 ? ' a' : ''} valid registered ${users.length === 1 ? 'user' : 'users'}. Please contact them to register a UV account.`;
+              return `Author ${users.join(", ")} ${users.length === 1 ? 'is' : 'are'} not${users.length === 1 ? ' a' : ''} valid registered ${users.length === 1 ? 'user' : 'users'}. Please contact them to register a UV account, or use the button at the right to manually add an author who does not have a UV account`;
             } else if (this.authorsError.reason === "SERVER_ERROR") {
-              return `Format: One of the E-mail provided is invalid`;
+              return `Format: One of the E-mail provided is in an invalid email address format`;
             } else {
               return "Unknown error";
             }
@@ -413,10 +461,11 @@
             for (const [index, param] of Object.entries(all.$each)) {
               let i = parseInt(index);
               if (param.$invalid) {
-                return `'${this.form.authors[i]}' is not a valid e-mail address.`;
+                return `'${this.form.authors[i]}' is not a valid e-mail address`;
               }
             }
           },
+          haveSelf: () => `You must include yourself (E-mail ${this.$store.getters["account/email"]}) as one of the authors`,
         };
         let $form = this.$v.form;
         if (key in $form) {
@@ -464,7 +513,7 @@
           })
           .catch((err) => {
             console.error(err);
-            alert(err);
+            snackbar.error(`Failed to submit basic paper information: ${err.errorMessage}`);
           })
           .finally(() => {
             this.paper.submitting = false;
@@ -489,7 +538,7 @@
           })
           .catch((err) => {
             console.error(err);
-            alert(err);
+            snackbar.error(`Failed to update paper: ${err.errorMessage}`);
           })
           .finally(() => {
             this.paper.submitting = false;
@@ -498,14 +547,8 @@
 
       getCategories() {
         api.getCategories()
-        .then(({data}) => {
-          const categories = [];
-          for (const category of data) {
-            categories.push(
-              {name: category[1], categoryId: parseInt(category[0])}
-            );
-          }
-          this.prefill.categories = categories;
+        .then((data) => {
+          this.prefill.categories = data;
         })
         .catch((err) => {
           this.prefill.categoriesFailed = true;
@@ -523,8 +566,7 @@
         let name;
         if (this.authorsLastSuccess && item in this.authorsLastSuccess) {
           const o = this.authorsLastSuccess[item];
-          const title = o.title ? (o.title.includes('.') ? `${o.title} ` : `${o.title}. ` ) : '';
-          name = `${title}${o.firstName}${o.middleName ? ` ${o.middleName}` : ' '} ${o.lastName}`;
+          name = marshal.name(o);
         } else {
           name = item;
         }
@@ -534,7 +576,7 @@
             if (this.authorsError.proof.find(el => el.user === item)) {
               return {
                 color: "error",
-                text: `${item} (invalid)`,
+                text: `${item} (not registered)`,
                 email: item,
               };
             } else if (!this.$v.form.authors.$each.$invalid && !this.$v.form.authors.$pending) {

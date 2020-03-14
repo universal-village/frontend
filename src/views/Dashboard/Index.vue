@@ -129,7 +129,7 @@
 
         routes.push({
             "route": "AuthorSubmit",
-            "title": "Submit Paper",
+            "title": "Submit paper",
             "subtitle": "Submit a new paper to the conference",
             "icon": "mdi-file-document-box-plus",
             "as": "Author",
@@ -152,8 +152,8 @@
             roles.push("A Category Chair");
           }
           if (this.roles.includes("Reviewer")) {
-            // roles.push(`The Paper Reviewer of "${this.details.reviewer.category.name}"`);
-            roles.push("A Paper Reviewer");
+            // roles.push(`The paper Reviewer of "${this.details.reviewer.category.name}"`);
+            roles.push("A paper Reviewer");
           }
           if (this.roles.includes("Attendee")) {
             let tags = [];

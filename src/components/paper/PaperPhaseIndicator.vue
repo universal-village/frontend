@@ -1,24 +1,57 @@
 <template>
   <div>
     <div
+      v-if="state.id === 'UNKNOWN'"
+      class="my-1"
+    >
+      <v-tooltip right>
+        <template v-slot:activator="{ on }">
+          <v-chip
+            :color="state.color"
+            small
+            v-on="on"
+          >
+            <v-icon
+              small
+              left
+            >
+              {{ state.icon }}
+            </v-icon>
+            {{ state.text }}
+          </v-chip>
+        </template>
+        {{ state.subtitle.replace("{phase}", state.id) }}
+      </v-tooltip>
+    </div>
+    <div
       v-for="chip in phases"
+      v-else
       :key="chip.id"
       class="my-1"
     >
       <template v-if="chip.id === state.id">
-        <v-tooltip bottom>
+        <v-tooltip right>
           <template v-slot:activator="{ on }">
             <v-chip
               :color="state.color"
-              small
+              class="px-6"
               v-on="on"
             >
+              <v-icon
+                small
+                left
+                style="margin-left: -16px"
+                class="mr-4"
+              >
+                mdi-arrow-right-bold-circle
+              </v-icon>
               <v-icon
                 small
                 left
               >
                 {{ state.icon }}
               </v-icon>
+
               {{ state.text }}
             </v-chip>
             {{ state.subtitle }}
@@ -27,7 +60,7 @@
       </template>
 
       <template v-else>
-        <v-tooltip bottom>
+        <v-tooltip right>
           <template v-slot:activator="{ on }">
             <v-chip
               color="grey lighten-1 grey--text text--darken-2"
@@ -71,7 +104,7 @@
           },
 
           {
-            id: "SUBMITTED",
+            id: "WITH_SESSION_CHAIR",
             color: "green white--text",
             text: "With Session Chair",
             subtitle: "",
@@ -91,7 +124,7 @@
             color: "warning",
             text: "To Be Revised",
             subtitle: "",
-            icon: "mdi-dots-horizontal",
+            icon: "mdi-account-clock",
           },
 
           {
@@ -112,10 +145,10 @@
 
           {
             id: "CAMERA_READY",
-            color: "green",
+            color: "green darken-1",
             text: "Camera Ready",
             subtitle: "",
-            icon: "mdi-check-circle",
+            icon: "mdi-checkbox-marked-circle-outline",
           },
         ],
       };
@@ -123,8 +156,10 @@
     computed: {
       state () {
         const UNKNOWN = {
+          id: "UNKNOWN",
           color: "grey",
           text: "Unknown",
+          subtitle: "Unknown paper phase \"{phase}\"",
           icon: "mdi-help-circle",
         };
 

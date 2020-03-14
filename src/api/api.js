@@ -35,24 +35,33 @@ export default {
     return service
       .get(`/auth/me`);
   },
-  getPapers () {
-    return service
-      .get(`/papers`);
-  },
   getCategories () {
     return service
-      .get(`/categories`);
+      .get(`/categories`)
+      .then(({data}) => {
+        const categories = [];
+        for (const category of data) {
+          categories.push(
+            {name: category[1], categoryId: parseInt(category[0])}
+          );
+        }
+        return categories;
+      });
   },
   papers: {
-    submit: (data) => {
+    list () {
+      return service
+        .get(`/papers`);
+    },
+    submit (data) {
       return service
         .post("/papers", data);
     },
-    update: (paperId, data) => {
+    update (paperId, data) {
       return service
         .put(`/papers/${paperId}`, data);
     },
-    upload: (paperId, file, progress) => {
+    upload (paperId, file, progress) {
       const formData = new FormData();
       formData.append("paperId", paperId);
       formData.append("file", file, file.name);
@@ -65,9 +74,25 @@ export default {
         method: 'post',
       });
     },
+    registerAuthor (data) {
+      return service
+        .post("/papers/registerAuthor", data);
+    },
+    delete (paperId) {
+      return service
+        .delete(`/papers/${paperId}`, {
+          paperId,
+        });
+    },
+    submitToReview (paperId) {
+      return service
+        .post("/papers/submitToReview", {
+          paperId,
+        });
+    },
   },
   users: {
-    checkNames: (names) => {
+    checkNames (names) {
       return service
         .post("/users/checkNames", names);
     },

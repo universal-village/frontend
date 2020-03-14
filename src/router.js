@@ -83,7 +83,7 @@ const router = new Router({
             author: PaperAdd,
           },
           meta: {
-            title: "Submit Paper",
+            title: "Submit paper",
             icon: "mdi-file-document-box-plus",
             acl: [acl.USER],
           },
@@ -99,6 +99,18 @@ const router = new Router({
             title: "My Submissions",
             icon: "mdi-file-document-box-multiple",
             acl: [acl.USER],
+          },
+        },
+
+        {
+          path: 'submissions/:paperId',
+          name: 'AuthorSubmission',
+          components: {
+            author: PaperIndex,
+          },
+          meta: {
+            acl: [acl.USER],
+            hide: true,
           },
         },
 

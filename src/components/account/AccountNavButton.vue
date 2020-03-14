@@ -14,7 +14,7 @@
       open-on-hover
       :close-on-content-click="false"
       top
-      transition="scroll-y-transition"
+      transition="slide-y-transition"
     >
       <template v-slot:activator="{ on }">
         <v-btn

@@ -50,8 +50,9 @@
         "error": "Error"
       },
       "status": {
-        "request": "No respond from service",
+        "request": "No response received from server",
         "response": {
+          "400": "Malformed request",
           "401": "Malformed request",
           "403": "Unauthorized",
           "404": "Invalid endpoint",
@@ -59,9 +60,9 @@
           "502": "Service gateway error",
           "503": "Service unavailable",
           "504": "Service gateway timeout",
-          "default": "Unknown error"
+          "default": "Unknown error code"
         },
-        "internal": "Internal error"
+        "internal": "JavaScript internal error"
       }
     }
   }

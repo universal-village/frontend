@@ -2,8 +2,8 @@ class Paper {
   constructor (data) {
     this.id = data.paperId;
     this.title = data.title;
-    this.authors = data.authors.split(",");
-    // this.categoryId = arg.categoryId;
+    this.authors = data.users;
+    this.categoryId = data.categoryId;
     this.category = {
       id: Number.parseInt(data.category.categoryId),
       name: data.category.name,
@@ -14,6 +14,8 @@ class Paper {
     this.paperAbstract = data.paperAbstract;
     this.users = data.users;
     this.reviews = data.reviews;
+
+    this.canEdit = ["DRAFT", "TO_BE_REVISED"].includes(data.phase);
   }
 }
 

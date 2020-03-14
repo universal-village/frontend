@@ -71,14 +71,16 @@
             </v-tooltip>
           </v-toolbar>
           <v-card-text>
-            <v-alert
-              :value="!!notice || !!error"
-              type="warning"
-              icon="mdi-account-lock"
-              border="left"
-            >
-              {{ notice ? notice : (error ? error : "") }}
-            </v-alert>
+            <v-expand-transition>
+              <v-alert
+                v-if="!!notice || !!error"
+                type="warning"
+                icon="mdi-account-lock"
+                border="left"
+              >
+                {{ notice ? notice : (error ? error : "") }}
+              </v-alert>
+            </v-expand-transition>
             <v-form>
               <v-text-field
                 v-model.trim="username"
@@ -151,27 +153,6 @@
           style="cursor: pointer"
           @click="$router.push({name: 'AccountRegister'})"
         >
-          <!--          <v-sheet-->
-          <!--            class="d-flex align-center justify-start px-4"-->
-          <!--            color="primary"-->
-          <!--            height="64"-->
-          <!--            tile-->
-          <!--            dark-->
-          <!--          >-->
-          <!--            &lt;!&ndash;            <v-icon size="28">&ndash;&gt;-->
-          <!--            &lt;!&ndash;              mdi-account&ndash;&gt;-->
-          <!--            &lt;!&ndash;            </v-icon>&ndash;&gt;-->
-          <!--            <span class="subtitle-1 white&#45;&#45;text ml-3 font-weight-bold">-->
-          <!--              Register-->
-          <!--            </span>-->
-          <!--            <v-spacer />-->
-          <!--            <v-icon-->
-          <!--              right-->
-          <!--              size="36"-->
-          <!--            >-->
-          <!--              mdi-chevron-right-->
-          <!--            </v-icon>-->
-          <!--          </v-sheet>-->
           <v-toolbar
             color="primary"
             dark
@@ -271,8 +252,19 @@ export default {
             });
           }
         })
-        .catch(() => {
-          this.error = this.$t('pages.account.login.reason.failedAuthentication');
+        .catch(({type, error}) => {
+          if (type === "FETCH_DETAIL") {
+            this.error = "Failed to fetch account details. Please try logging in again";
+          } else if (type === "CREDENTIALS") {
+            if (error.response) {
+              this.error = "E-mail or password is incorrect";
+            } else {
+              this.error = "Network request failed. Please check your network and try again";
+            }
+          } else {
+            this.error = error.errorMessage;
+          }
+
           this.$refs.recaptcha.reset();
         });
     },
