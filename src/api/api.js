@@ -1,11 +1,5 @@
 import service from "../utils/service";
-import jwtDecode from 'jwt-decode';
-
-function parseJwt(data) {
-  let token = data.token;
-  let refreshToken = data.refreshToken;
-  return {...jwtDecode(token), ...{refreshToken, token}};
-}
+import unmarshal from "../utils/unmarshal";
 
 export default {
   login (username, password) {
@@ -15,7 +9,7 @@ export default {
         password,
       })
       .then(({data}) => {
-        return parseJwt(data);
+        return unmarshal.jwt(data);
       });
   },
   register (data) {
@@ -28,7 +22,7 @@ export default {
         refreshToken,
       })
       .then(({data}) => {
-        return parseJwt(data);
+        return unmarshal.jwt(data);
       });
   },
   getCurrentUser () {

@@ -34,7 +34,7 @@
               :src="require('@/assets/logo.png')"
               :aspect-ratio="5.513"
               height="80"
-              class="mx-12"
+              class="mx-12 logo"
               contain
             />
             <h2 class="overline text-center">
@@ -283,5 +283,9 @@
   .monospace {
     font-family: SF Mono, Consolas, Monospaced, Courier New, monospace;
     letter-spacing: 0;
+  }
+
+  .logo {
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, .5));
   }
 </style>

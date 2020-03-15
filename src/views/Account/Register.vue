@@ -19,7 +19,7 @@
           :aspect-ratio="5.513"
           max-width="200px"
           contain
-          class="mx-auto mb-6"
+          class="mx-auto mb-6 logo"
           style="cursor: pointer"
           @click="$router.push({path: '/'})"
         >
@@ -64,7 +64,7 @@
               <v-window-item :value="1">
                 <div class="pa-4 text-center">
                   <v-img
-                    class="my-6 mx-auto"
+                    class="my-6 mx-auto logo"
                     contain
                     width="256"
                     :aspect-ratio="5.513"

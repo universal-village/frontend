@@ -1,5 +1,6 @@
 import api from "../../api/api";
 import marshaller from "../../utils/marshal";
+import unmarshal from "../../utils/unmarshal";
 
 const EMPTY_JWT_STATE = {
   token: "",
@@ -64,8 +65,9 @@ export default {
       });
     },
     jwtLogin ({commit, dispatch}, credentials) {
+      const jwt = unmarshal.jwt(credentials);
       return new Promise((resolve, reject) => {
-        commit('updateJwt', credentials);
+        commit('updateJwt', jwt);
         api.getCurrentUser()
           .then(({data}) => {
             commit('updateDetails', data);

@@ -8,6 +8,8 @@
     "build:single": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "ui": "vue ui",
+    "deploy": "yarn build && yarn upload",
+    "upload": "tar cvf dist.tar dist/ && scp dist.tar uv2020:/tmp/dist.tar && ssh -t uv2020 \"cd /srv/www/universal-village/ && sudo mv /tmp/dist.tar . && sudo rm -rf dist/ && sudo tar xvf dist.tar\"",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {

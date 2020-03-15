@@ -16,9 +16,9 @@
         <v-img
           :src="require('@/assets/logo.png')"
           :aspect-ratio="5.513"
-          max-width="200px"
+          max-width="250px"
           contain
-          class="mx-auto mb-3"
+          class="mx-auto mb-3 logo"
         >
           <template v-slot:placeholder>
             <v-row

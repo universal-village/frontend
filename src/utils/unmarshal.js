@@ -1,4 +1,5 @@
 import Paper from "../models/Paper";
+import jwtDecode from "jwt-decode";
 //
 // function get(key, object, fallback="") {
 //   if (key in object) {
@@ -17,5 +18,10 @@ export default {
       }
     }
     return new Paper(args);
+  },
+  jwt (data) {
+    let token = data.token;
+    let refreshToken = data.refreshToken;
+    return {...jwtDecode(token), ...{refreshToken, token}};
   },
 };

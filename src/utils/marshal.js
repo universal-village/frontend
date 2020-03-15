@@ -37,9 +37,11 @@ export default {
     form,
   }
   ) => {
+    const salt = "universal-village";
+
     let [birthYear, birthMonth, birthDay] = birthday.split("-");
     let address = form.meta.address;
-    let {encryptedPassword} = this.credentials({username: "dummy", password});
+    let encryptedPassword = sha256().update(password + salt).digest('hex');
 
     return {
       email,
