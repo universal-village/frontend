@@ -39,10 +39,11 @@ export default {
   ) => {
     let [birthYear, birthMonth, birthDay] = birthday.split("-");
     let address = form.meta.address;
+    let {encryptedPassword} = this.credentials({username: "dummy", password});
 
     return {
       email,
-      password,
+      password: encryptedPassword,
 
       title,
       firstName,
