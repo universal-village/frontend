@@ -12,7 +12,7 @@
           Welcome!
         </h1>
         <h2 class="title px-3 mb-4">
-          Signed in as {{ details.firstName }} {{ details.middleName }} {{ details.lastName }}
+          Signed in as {{ name }}
         </h2>
       </v-col>
 
@@ -98,11 +98,16 @@
 <script>
 
   import {mapGetters} from "vuex";
+  import marshal from "../../utils/marshal";
 
   export default {
     name: "DashboardIndex",
     computed: {
       ...mapGetters('account', ['details', 'roles']),
+
+      name () {
+        return marshal.name(this.details);
+      },
 
       routes () {
         let routes = [];
