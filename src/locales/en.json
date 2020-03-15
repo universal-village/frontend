@@ -1,8 +1,69 @@
 {
   "pages": {
     "home": {
-      "title": "Homepage",
-      "description": "Just a homepage"
+      "title": "Home"
+    },
+    "account": {
+      "title": "My Account",
+      "login": {
+        "title": "Login",
+        "reason": {
+          "sessionExpired": "Your session has expired, please login again",
+          "failedAuthentication": "E-mail or password you provided is incorrect"
+        }
+      },
+      "profile": {
+        "title": "Profile"
+      },
+      "register": {
+        "title": "Register"
+      }
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "home": {
+        "title": "Home"
+      }
+    }
+  },
+  "nouns": {
+    "partials": {
+      "required": "is required",
+      "invalid": "Invalid"
+    },
+    "form": {
+      "submit": "Submit"
+    },
+    "account": {
+      "email": "E-mail",
+      "emailRequired": "@:nouns.account.email @:nouns.partials.required",
+      "emailInvalid": "@:nouns.partials.invalid @:nouns.account.email",
+
+      "password": "Password",
+      "passwordRequired": "@:nouns.account.password @:nouns.partials.required"
+    }
+  },
+  "message": {
+    "network": {
+      "state": {
+        "loading": "Loading...",
+        "error": "Error"
+      },
+      "status": {
+        "request": "No response received from server",
+        "response": {
+          "400": "Malformed request",
+          "401": "Malformed request",
+          "403": "Unauthorized",
+          "404": "Invalid endpoint",
+          "500": "Service error",
+          "502": "Service gateway error",
+          "503": "Service unavailable",
+          "504": "Service gateway timeout",
+          "default": "Unknown error code"
+        },
+        "internal": "JavaScript internal error"
+      }
     }
   }
 }
