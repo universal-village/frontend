@@ -183,12 +183,6 @@ export default {
     VueRecaptcha,
   },
   mixins: [validationMixin],
-  props: {
-    redirect: {
-      type: String,
-      required: false,
-    },
-  },
   data () {
     return {
       solvingRecaptcha: false,
@@ -235,6 +229,9 @@ export default {
         return null;
       }
     },
+    redirect () {
+      return this.$route.query.redirect;
+    },
   },
   methods: {
     submit () {
@@ -245,7 +242,9 @@ export default {
       })
         .then(() => {
           if (this.redirect) {
-            this.$router.push({path: this.redirect});
+            this.$router.push({
+              path: this.redirect,
+            });
           } else {
             this.$router.push({
               name: "Dashboard",
