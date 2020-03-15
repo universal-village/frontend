@@ -106,18 +106,45 @@
         <v-list-item v-if="!previewOnly">
           <v-list-item-action>
             <v-icon>
-              mdi-note-text
+              mdi-timeline-text
             </v-icon>
           </v-list-item-action>
 
           <v-list-item-content>
             <v-list-item-title>
-              Phase
+              Status
             </v-list-item-title>
             <v-list-item-subtitle class="nowrap">
               <PaperPhaseIndicator :phase="content.phase" />
             </v-list-item-subtitle>
           </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item
+          v-if="!previewOnly"
+          :href="content.link"
+          target="_blank"
+        >
+          <v-list-item-action>
+            <v-icon>
+              mdi-download
+            </v-icon>
+          </v-list-item-action>
+
+          <v-list-item-content>
+            <v-list-item-title>
+              Paper Submission File
+            </v-list-item-title>
+            <v-list-item-subtitle class="nowrap">
+              {{ content.link ? "Click to download" : "(no file has been submitted yet)" }}
+            </v-list-item-subtitle>
+          </v-list-item-content>
+
+          <v-list-item-action>
+            <v-icon>
+              {{ content.link ? `mdi-file-${content.link.split(".").pop()}` : "mdi-file-question" }}
+            </v-icon>
+          </v-list-item-action>
         </v-list-item>
       </v-list>
     </v-card-text>
@@ -129,7 +156,7 @@
     </v-card-actions>
     <v-sheet
       v-if="!content.canEdit"
-      color="grey lighten-3"
+      color="grey lighten-4"
       class="caption align-center d-flex px-2 py-1 justify-center"
       tile
     >

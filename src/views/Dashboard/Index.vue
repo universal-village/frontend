@@ -129,7 +129,7 @@
 
         routes.push({
             "route": "AuthorSubmit",
-            "title": "Submit paper",
+            "title": "Submit Paper",
             "subtitle": "Submit a new paper to the conference",
             "icon": "mdi-file-document-box-plus",
             "as": "Author",

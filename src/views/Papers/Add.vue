@@ -29,7 +29,6 @@
             step="1"
           >
             Basic Information
-            <small>Required</small>
           </v-stepper-step>
 
           <v-stepper-content step="1">
@@ -196,15 +195,14 @@
             step="2"
           >
             Upload Paper
-            <small>Required</small>
           </v-stepper-step>
 
           <v-stepper-content step="2">
             <p class="caption">
-              Please ensure that the your camera-ready paper follows the <a
+              Please ensure that your camera-ready paper follows the <a
                 href="https://www.ieee.org/conferences/publishing/templates.html"
                 target="_blank"
-              >IEEE conference template</a> and uses <strong>letter size paper</strong>. IEEE<em>Xplore</em> will reject all papers not meeting the formatting requirement. Thank you very much!
+              >IEEE conference template</a> and uses US letter. IEEE<em>Xplore</em> only accepts papers meeting the formatting requirement. Thank you!
             </p>
             <v-col
               cols="12"
@@ -220,7 +218,7 @@
                 :accepted-file-types="['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/pdf']"
                 max-file-size="10MB"
                 label-idle="Drag & Drop your paper or <span class=&quot;filepond--label-action&quot;> Browse </span><br><span class='caption'>Only accepts <span class='overline'>Word</span> and <span class='overline'>PDF</span> file</span>"
-                file-validate-type-label-expected-types="Only accepts .doc, .docx and .pdf file"
+                file-validate-type-label-expected-types="Only accepts .doc, .docx and .pdf file, maximum 10MB"
                 @updatefiles="uploadFile"
               />
               <v-expand-transition>
