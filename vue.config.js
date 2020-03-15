@@ -1,4 +1,11 @@
 const config = require("./src/config");
+const webpack = require("webpack");
+
+let commitHash = require('child_process')
+  .execSync('git rev-parse --short HEAD')
+  .toString();
+
+
 module.exports = {
   assetsDir: '_/',
   runtimeCompiler: true,
@@ -24,5 +31,12 @@ module.exports = {
 
     // configure the workbox plugin
     workboxPluginMode: 'GenerateSW',
+  },
+  configureWebpack: {
+    plugins: [
+      new webpack.DefinePlugin({
+        GIT_VERSION: JSON.stringify(commitHash).trim(),
+      }),
+    ],
   },
 };

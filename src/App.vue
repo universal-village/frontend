@@ -134,7 +134,7 @@
               style="font-size: 1.5em"
             >
               <span class="monospace mr-2">{{ $config.conference.identifier }}</span>
-              <small style="letter-spacing: -.03em; text-transform: none;">ver.</small><span class="monospace">f91e7afd</span>
+              <small style="letter-spacing: -.03em; text-transform: none;">ver.</small><span class="monospace">{{ gitHash }}</span>
             </span>
           </v-card-text>
         </v-card>
@@ -233,6 +233,9 @@
         let routes = this.$router.options.routes;
         routes = routes.filter(el => !el.meta.hide && this.allowed(el.meta.acl));
         return routes;
+      },
+      gitHash () {
+        return GIT_VERSION;
       },
     },
     methods: {
