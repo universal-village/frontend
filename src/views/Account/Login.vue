@@ -169,6 +169,15 @@
         </v-card>
       </v-col>
     </v-row>
+    <div class="justify-center">
+      <span
+        class="overline white--text"
+        style="font-size: 1.5em; text-shadow: 0 0 3px rgba(0, 0, 0, .5)"
+      >
+        <span class="monospace mr-2">{{ $config.conference.identifier }}</span>
+        <small style="letter-spacing: -.03em; text-transform: none;">ver.</small><span class="monospace">{{ gitHash }}</span>
+      </span>
+    </div>
   </v-container>
 </template>
 
@@ -231,6 +240,9 @@ export default {
     },
     redirect () {
       return this.$route.query.redirect;
+    },
+    gitHash () {
+      return GIT_VERSION;
     },
   },
   methods: {
