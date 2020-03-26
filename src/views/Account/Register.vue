@@ -1,6 +1,6 @@
 <template>
   <v-container
-    class="fill-height"
+    class="fill-height align-content-center justify-center"
     fluid
   >
     <v-row
@@ -411,6 +411,7 @@ import {validationMixin} from 'vuelidate';
 import {required, email, sameAs, minLength, maxLength, requiredIf} from 'vuelidate/lib/validators';
 import marshaller from "../../utils/marshal";
 import api from "../../api/api";
+import snackbar from "../../utils/snackbar";
 // import api from "../../api";
 
 export default {
@@ -564,12 +565,12 @@ export default {
             this.step += 1;
           })
           .catch((err) => {
-            alert(err);
+            snackbar.error(err.errorMessage);
             this.$refs.recaptcha.reset();
           });
         })
         .catch((err) => {
-          alert(err);
+          snackbar.error(err.errorMessage);
           this.$refs.recaptcha.reset();
         });
       console.log(marshalled);
