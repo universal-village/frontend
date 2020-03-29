@@ -285,7 +285,7 @@
   const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginFileValidateSize);
 
   import {validationMixin} from 'vuelidate';
-  import {required, maxLength, email} from 'vuelidate/lib/validators';
+  import {required, minLength, maxLength, email} from 'vuelidate/lib/validators';
   import marshal from "../../utils/marshal";
   import RegisterPartialAuthor from "../../components/account/RegisterPartialAuthor";
   import snackbar from "../../utils/snackbar";
@@ -305,6 +305,7 @@
         },
         abstract: {
           required,
+          minLength: minLength(100),
           maxLength: maxLength(4000),
         },
         keywords: {
@@ -438,8 +439,8 @@
         };
         const errorsMap = {
           required: (field) => `${field} is required`,
-          minLength: (field, {min}) => `Length of ${field} is too short${min ? ': must be longer than ' + min : ' characters'}`,
-          maxLength: (field, {max}) => `Length of ${field} is too long${max ? ': must be shorter than ' + max : ' characters'}`,
+          minLength: (field, {min}) => `${field} is too short${min ? ': must be longer than ' + min : ' characters'}`,
+          maxLength: (field, {max}) => `${field} is too long${max ? ': must be shorter than ' + max : ' characters'}`,
           registered: () => {
             if (!this.authorsError) return false;
             if (this.authorsError.reason === "SOME_INVALID") {
