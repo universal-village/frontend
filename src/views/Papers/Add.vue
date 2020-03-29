@@ -305,7 +305,7 @@
         },
         abstract: {
           required,
-          minLength: minLength(100),
+          minLength: minLength(200),
           maxLength: maxLength(4000),
         },
         keywords: {
