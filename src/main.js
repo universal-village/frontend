@@ -4,7 +4,6 @@ import store from './store';
 import router from './router';
 import vuetify from './plugins/vuetify';
 import i18n from './i18n';
-import './registerServiceWorker';
 import VueAnalytics from "vue-analytics";
 
 import config from './config';
