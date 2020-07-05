@@ -6,7 +6,7 @@ import config from "./config";
 
 import Login from './views/Account/Login';
 import AccountLayout from "./layouts/AccountLayout";
-// import Profile from "./views/Account/Profile";
+import Profile from "./views/Account/Profile";
 import DashboardIndex from "./views/Dashboard/Index";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Register from "./views/Account/Register";
@@ -15,10 +15,10 @@ import PaperAdd from "./views/Papers/Add";
 // import ConferenceRegistration from "./views/Member/ConferenceRegistration";
 import AuthorLayout from "./layouts/Roles/AuthorLayout";
 import NotFound from "./views/Error/NotFound";
-// import ChairLayout from "./layouts/Roles/ChairLayout";
-// import AssignReviewer from "./views/Chair/AssignReviewer";
-// import ReviewerLayout from "./layouts/Roles/ReviewerLayout";
-// import ReviewPaper from "./views/Reviewer/ReviewPaper";
+import ChairLayout from "./layouts/Roles/ChairLayout";
+import AssignReviewer from "./views/Chair/AssignReviewer";
+import ReviewerLayout from "./layouts/Roles/ReviewerLayout";
+import ReviewPaper from "./views/Reviewer/ReviewPaper";
 
 Vue.use(Router);
 
@@ -128,56 +128,56 @@ const router = new Router({
         // },
       ],
     },
-    // {
-    //   path: '/chair',
-    //   components: {
-    //     default: ChairLayout,
-    //   },
-    //   meta: {
-    //     title: "Category Chair",
-    //     icon: "mdi-account-tie",
-    //     acl: [acl.USER, acl.CATEGORY_CHAIR],
-    //   },
-    //   children: [
-    //     {
-    //       path: 'assign-reviewer',
-    //       name: 'ChairAssignReviewer',
-    //       components: {
-    //         chair: AssignReviewer,
-    //       },
-    //       meta: {
-    //         title: "Assign Reviewer",
-    //         icon: "mdi-account-plus",
-    //         acl: [acl.USER, acl.CATEGORY_CHAIR],
-    //       },
-    //     },
-    //   ],
-    // },
-    // {
-    //   path: '/reviewer',
-    //   components: {
-    //     default: ReviewerLayout,
-    //   },
-    //   meta: {
-    //     title: "Reviewer",
-    //     icon: "mdi-account-edit",
-    //     acl: [acl.USER, acl.REVIEWER],
-    //   },
-    //   children: [
-    //     {
-    //       path: 'review',
-    //       name: 'ReviewerReview',
-    //       components: {
-    //         reviewer: ReviewPaper,
-    //       },
-    //       meta: {
-    //         title: "Review Papers",
-    //         icon: "mdi-file-account",
-    //         acl: [acl.USER, acl.REVIEWER],
-    //       },
-    //     },
-    //   ],
-    // },
+    {
+      path: '/chair',
+      components: {
+        default: ChairLayout,
+      },
+      meta: {
+        title: "Category Chair",
+        icon: "mdi-account-tie",
+        acl: [acl.USER, acl.CATEGORY_CHAIR],
+      },
+      children: [
+        {
+          path: 'assign-reviewer',
+          name: 'ChairAssignReviewer',
+          components: {
+            chair: AssignReviewer,
+          },
+          meta: {
+            title: "Assign Reviewer",
+            icon: "mdi-account-plus",
+            acl: [acl.USER, acl.CATEGORY_CHAIR],
+          },
+        },
+      ],
+    },
+    {
+      path: '/reviewer',
+      components: {
+        default: ReviewerLayout,
+      },
+      meta: {
+        title: "Reviewer",
+        icon: "mdi-account-edit",
+        acl: [acl.USER, acl.REVIEWER],
+      },
+      children: [
+        {
+          path: 'review',
+          name: 'ReviewerReview',
+          components: {
+            reviewer: ReviewPaper,
+          },
+          meta: {
+            title: "Review Papers",
+            icon: "mdi-file-account",
+            acl: [acl.USER, acl.REVIEWER],
+          },
+        },
+      ],
+    },
     {
       path: '/account',
       components: {
@@ -189,18 +189,18 @@ const router = new Router({
         acl: [acl.USER],
       },
       children: [
-        // {
-        //   path: '',
-        //   name: 'AccountProfile',
-        //   components: {
-        //     account: Profile,
-        //   },
-        //   meta: {
-        //     title: "Account Profile",
-        //     icon: "mdi-account-badge-horizontal",
-        //     acl: [acl.USER],
-        //   },
-        // },
+        {
+          path: '',
+          name: 'AccountProfile',
+          components: {
+            account: Profile,
+          },
+          meta: {
+            title: "Account Profile",
+            icon: "mdi-account-badge-horizontal",
+            acl: [acl.USER],
+          },
+        },
         {
           path: 'login',
           name: 'AccountLogin',
@@ -249,7 +249,10 @@ router.beforeEach((to, from, next) => {
   // acl check
   let permit = acl.allowed(to.meta.acl);
   if (permit === acl.OK) return next();
-  if (permit === acl.NO_PERMISSION) return next(false);
+  if (permit === acl.NO_PERMISSION) {
+    alert("You don't have permission to such page. Please check your status.");
+    return next(false);
+  }
   if (permit === acl.NOT_LOGGED_IN) return next({name: "AccountLogin", query: { redirect: to.path }});
   return next();
 });

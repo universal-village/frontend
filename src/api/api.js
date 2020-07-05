@@ -1,5 +1,6 @@
 import service from "../utils/service";
 import unmarshal from "../utils/unmarshal";
+import store from "../store";
 
 export default {
   login (username, password) {
@@ -62,7 +63,7 @@ export default {
 
       return service({
         url: `/papers/${paperId}/upload`,
-        timeout: 8640000, // 24 hours
+        timeout: 86400000, // 24 hours
         data: formData, // form data
         onUploadProgress: progress,
         method: 'post',
@@ -89,6 +90,10 @@ export default {
     checkNames (names) {
       return service
         .post("/users/checkNames", names);
+    },
+    updateProfile (newProfile) {
+      return service
+        .put("/users/" + store.getters["account/details"].userId, newProfile);
     },
   },
 };

@@ -20,7 +20,7 @@ module.exports = {
   integrity: true,
   productionSourceMap: false,
   devServer: {
-    proxy: 'http://40.112.131.74/webapi',
+    proxy: 'http://52.54.156.175',
   },
   configureWebpack: {
     plugins: [

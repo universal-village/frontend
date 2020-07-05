@@ -15,13 +15,6 @@ const production = process.env.NODE_ENV === 'production';
 Vue.use(VuetifyGoogleAutocomplete, {
   apiKey: config.credentials.googleMapsApiKey,
 });
-import * as Sentry from '@sentry/browser';
-import * as Integrations from '@sentry/integrations';
-
-Sentry.init({
-  dsn: 'https://fc289ba9c0fe449abdf5df99ea8f1de7@sentry.imgal.vin/3',
-  integrations: [new Integrations.Vue({Vue, attachProps: true})],
-});
 
 Vue.prototype.$config = config;
 

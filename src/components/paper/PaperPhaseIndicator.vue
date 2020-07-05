@@ -73,6 +73,7 @@
       text: "Accepted",
       subtitle: "",
       icon: "mdi-check-circle",
+      binary: true,
     },
 
     {
@@ -81,6 +82,7 @@
       text: "Rejected",
       subtitle: "",
       icon: "mdi-close-circle",
+      binary: true,
     },
 
     {

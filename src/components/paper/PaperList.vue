@@ -109,7 +109,8 @@
           cols="12"
           sm="6"
           md="6"
-          lg="4"
+          lg="6"
+          xl="4"
         >
           <v-skeleton-loader
             type="card-heading,list-item-avatar-three-line@5,actions"

@@ -32,6 +32,7 @@ export default {
       state.jwt = Object.assign({}, state.jwt, newJwtObject);
     },
     updateDetails (state, newDetailsObject) {
+      // this.$set(state, "details", newDetailsObject);
       state.details = Object.assign({}, newDetailsObject);
     },
   },
@@ -43,17 +44,12 @@ export default {
         api.login(username, password)
           .then(jwt => {
             commit('updateJwt', jwt);
-            api.getCurrentUser()
-              .then(({data}) => {
-                commit('updateDetails', data);
+            dispatch('updateDetails')
+              .then(() => {
                 resolve();
               })
-              .catch(error => {
-                dispatch('logout');
-                reject({
-                  type: "FETCH_DETAIL",
-                  error,
-                });
+              .catch(err => {
+                reject(err);
               });
           })
           .catch(error => {
@@ -64,8 +60,25 @@ export default {
           });
       });
     },
+    updateDetails({commit, dispatch}) {
+      return new Promise(((resolve, reject) => {
+        api.getCurrentUser()
+          .then(({data}) => {
+            commit('updateDetails', data);
+            resolve();
+          })
+          .catch(error => {
+            dispatch('logout');
+            reject({
+              type: "FETCH_DETAIL",
+              error,
+            });
+          });
+      }));
+    },
     jwtLogin ({commit, dispatch}, credentials) {
       const jwt = unmarshal.jwt(credentials);
+
       return new Promise((resolve, reject) => {
         commit('updateJwt', jwt);
         api.getCurrentUser()

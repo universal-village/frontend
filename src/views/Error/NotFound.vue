@@ -13,10 +13,18 @@
         </h1>
         <h1>Page Not Found</h1>
         <p>
-          The resource that you try to access cannot be found. Please try the links below:
+          The resource that you try to access cannot be found.
         </p>
-        <v-divider />
-        Need support? Our contact information is at <a :href="contact">{{ contact }}</a>
+        <v-divider class="mb-4" />
+        Need support? Contact us at <a :href="contact">{{ contact }}</a>
+      </v-col>
+      <v-col
+        cols="12"
+        class="justify-center d-flex"
+      >
+        <span>
+          Universal Village | {{ gitHash }}
+        </span>
       </v-col>
     </v-row>
   </v-container>
@@ -29,6 +37,9 @@
     computed: {
       contact () {
         return config.externalLinks.contact;
+      },
+      gitHash () {
+        return GIT_VERSION;
       },
     },
   };

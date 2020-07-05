@@ -112,25 +112,25 @@
       routes () {
         let routes = [];
 
-        // if (this.roles.includes("CategoryChair")) {
-        //   routes.push({
-        //     "route": "ChairAssignReviewer",
-        //     "title": "Assign Reviewer",
-        //     "subtitle": "Assign reviewer to papers",
-        //     "icon": "mdi-file-account",
-        //     "as": "Category Chair",
-        //   });
-        // }
-        //
-        // if (this.roles.includes("Reviewer")) {
-        //   routes.push({
-        //     "route": "ReviewerReview",
-        //     "title": "Assigned Papers",
-        //     "subtitle": "Review papers assigned to you",
-        //     "icon": "mdi-file-document-edit",
-        //     "as": "Reviewer",
-        //   });
-        // }
+        if (!this.roles.includes("CategoryChair")) {
+          routes.push({
+            "route": "ChairAssignReviewer",
+            "title": "Assign Reviewer",
+            "subtitle": "Assign reviewer to papers",
+            "icon": "mdi-file-account",
+            "as": "Category Chair",
+          });
+        }
+
+        if (!this.roles.includes("Reviewer")) {
+          routes.push({
+            "route": "ReviewerReview",
+            "title": "Assigned Papers",
+            "subtitle": "Review papers assigned to you",
+            "icon": "mdi-file-document-edit",
+            "as": "Reviewer",
+          });
+        }
 
         routes.push({
           "route": "AuthorSubmit",

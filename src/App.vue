@@ -41,7 +41,7 @@
               {{ $config.conference.name.long }}
             </h2>
             <h1 class="title text-center">
-              Submittion System
+              Submission System
             </h1>
           </v-list-item-title>
         </v-list-item-content>
@@ -191,6 +191,7 @@
 <script>
   import AccountNavButton from "./components/account/AccountNavButton";
   import GlobalSnackbar from "./components/global/GlobalSnackbar";
+  // import acl from "./utils/acl";
 
   export default {
     components: {GlobalSnackbar, AccountNavButton},
