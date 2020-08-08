@@ -142,6 +142,7 @@
               <PreviewCard
                 :paper="item"
                 style="height: 100%"
+                v-bind="$attrs"
               >
                 <template v-slot:actions>
                   <v-tooltip bottom>
@@ -204,13 +205,7 @@
             color="info"
             icon="mdi-information"
           >
-            No paper has been submitted yet. <v-btn
-              outlined
-              small
-              :to="{name: 'AuthorSubmit'}"
-            >
-              submit a paper
-            </v-btn>
+            There's no paper matching the criteria.
           </v-alert>
         </template>
       </v-data-iterator>

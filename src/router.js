@@ -19,6 +19,7 @@ import ChairLayout from "./layouts/Roles/ChairLayout";
 import AssignReviewer from "./views/Chair/AssignReviewer";
 import ReviewerLayout from "./layouts/Roles/ReviewerLayout";
 import ReviewPaper from "./views/Reviewer/ReviewPaper";
+import ListPapers from "./views/Chair/ListPapers";
 
 Vue.use(Router);
 
@@ -148,6 +149,18 @@ const router = new Router({
           meta: {
             title: "Assign Reviewer",
             icon: "mdi-account-plus",
+            acl: [acl.USER, acl.CATEGORY_CHAIR],
+          },
+        },
+        {
+          path: 'papers',
+          name: 'ChairListPapers',
+          components: {
+            chair: ListPapers,
+          },
+          meta: {
+            title: "List Papers",
+            icon: "mdi-file-document-box-multiple",
             acl: [acl.USER, acl.CATEGORY_CHAIR],
           },
         },

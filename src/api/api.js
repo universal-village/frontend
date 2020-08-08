@@ -48,6 +48,9 @@ export default {
       return service
         .get(`/papers`);
     },
+    listCategory (categoryId) {
+      return service.get(`/categories/${categoryId}/papers`);
+    },
     submit (data) {
       return service
         .post("/papers", data);
