@@ -46,14 +46,14 @@
 
         <v-divider class="mt-2" />
 
-        <!--        <v-list-item-->
-        <!--          :to="{name: 'AccountProfile'}"-->
-        <!--        >-->
-        <!--          <v-list-item-title>Account Profile</v-list-item-title>-->
-        <!--          <v-list-item-icon>-->
-        <!--            <v-icon>mdi-account</v-icon>-->
-        <!--          </v-list-item-icon>-->
-        <!--        </v-list-item>-->
+        <v-list-item
+          :to="{name: 'AccountProfile'}"
+        >
+          <v-list-item-title>Account Profile</v-list-item-title>
+          <v-list-item-icon>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-icon>
+        </v-list-item>
 
         <v-list-item
           @click="logout"
