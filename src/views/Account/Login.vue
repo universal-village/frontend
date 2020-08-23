@@ -12,7 +12,21 @@
         sm="10"
         md="8"
         lg="6"
+
+        class="flex-column"
       >
+        <v-btn
+          class="mb-6"
+          color="accent"
+          href="https://universalvillage.org"
+          target="_blank"
+        >
+          <v-icon left>
+            mdi-chevron-left
+          </v-icon>
+          Back to Main Website
+        </v-btn>
+
         <v-img
           :src="require('@/assets/logo.png')"
           :aspect-ratio="5.513"

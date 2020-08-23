@@ -7,7 +7,7 @@ module.exports = {
     },
   },
   externalLinks: {
-    contact: 'http://universalvillage.org/contact/',
+    contact: 'https://universalvillage.org/contact/',
   },
   credentials: {
     recaptchaSiteKey: process.env.NODE_ENV === 'production' ? '6LeE8GQUAAAAADw5NwLtA6Ge_trrLCvTkJe8yD7d' : "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
