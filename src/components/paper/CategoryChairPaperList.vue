@@ -28,7 +28,7 @@
             color="primary"
             class="px-6"
             :loading="dialog.pending"
-            @click="doAssign(dialog.activePaperData)"
+            @click="doAssign(dialog.activePaperData, assign.email)"
           >
             <v-icon left>
               mdi-send
@@ -244,9 +244,9 @@
         this.dialog.delete = false;
         this.dialog.activePaperData = {};
       },
-      doAssign({id}) {
+      doAssign(item, email) {
         this.dialog.pending = true;
-        api.papers.assign(id)
+        api.papers.assign(item.paperId, item.categoryId, email)
           .then(() => {
             snackbar.success(`Successfully submitted Paper#${id} to review.`);
 
