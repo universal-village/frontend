@@ -260,7 +260,7 @@
           .finally(() => this.dialog.pending = false);
       },
       download(item) {
-        window.open(this.item.link)
+        window.open(item.link);
       },
       doDelete() {
         snackbar.info("Currently we do not support deleting paper from the web interface. If you need to do so, please manually contact us!");

@@ -96,8 +96,8 @@ export default {
       return service({
         url:`/papers/${paperId}/assign`,
         data:formData,
-      })
-    }
+      });
+    },
   },
   users: {
     checkNames (names) {
