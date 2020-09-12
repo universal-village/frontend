@@ -88,6 +88,16 @@ export default {
           paperId,
         });
     },
+    assign(paperId,categoryId,userEmail,userId) {
+      const formData = new FormData();
+      formData.append('categoryId',categoryId);
+      formData.append('userEmail',userEmail);
+      formData.append('userId',userId);
+      return service({
+        url:`/papers/${paperId}/assign`,
+        data:formData,
+      })
+    }
   },
   users: {
     checkNames (names) {

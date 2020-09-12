@@ -164,6 +164,20 @@
                     </template>
                     Move Paper to other Categories
                   </v-tooltip>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        icon
+                        style="padding: 0;"
+                        color="green"
+                        v-on="on"
+                        @click="download(item)"
+                      >
+                        <v-icon>mdi-download</v-icon>
+                      </v-btn>
+                    </template>
+                    Provide hyperlink to download paper
+                  </v-tooltip>
                 </template>
               </CategoryChairPreviewCard>
             </v-col>
@@ -232,7 +246,7 @@
       },
       doAssign({id}) {
         this.dialog.pending = true;
-        api.papers.submitToReview(id)
+        api.papers.assign(id)
           .then(() => {
             snackbar.success(`Successfully submitted Paper#${id} to review.`);
 
@@ -244,6 +258,9 @@
             snackbar.error(`Failed to submit Paper#${id} to review: ${err.errorMessage}`);
           })
           .finally(() => this.dialog.pending = false);
+      },
+      download(item) {
+        window.open(this.item.link)
       },
       doDelete() {
         snackbar.info("Currently we do not support deleting paper from the web interface. If you need to do so, please manually contact us!");

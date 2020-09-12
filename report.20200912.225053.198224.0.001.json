@@ -1,0 +1,542 @@
+
+{
+  "header": {
+    "reportVersion": 1,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20200912.225053.198224.0.001.json",
+    "dumpEventTime": "2020-09-12T22:50:53Z",
+    "dumpEventTimeStamp": "1599922253891",
+    "processId": 198224,
+    "cwd": "D:\\my study\\UV\\frontend",
+    "commandLine": [
+      "D:\\nodejs\\node.exe",
+      "D:\\my study\\UV\\frontend\\node_modules\\.bin\\\\..\\@vue\\cli-service\\bin\\vue-cli-service.js",
+      "build"
+    ],
+    "nodejsVersion": "v12.13.1",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "win32",
+    "componentVersions": {
+      "node": "12.13.1",
+      "v8": "7.7.299.13-node.16",
+      "uv": "1.33.1",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.39.2",
+      "napi": "5",
+      "llhttp": "1.1.4",
+      "http_parser": "2.8.0",
+      "openssl": "1.1.1d",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019c",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "lts": "Erbium",
+      "headersUrl": "https://nodejs.org/download/release/v12.13.1/node-v12.13.1-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.13.1/node-v12.13.1.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v12.13.1/win-x64/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "10.0.18363",
+    "osVersion": "Windows 10 Home China",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz",
+        "speed": 2496,
+        "user": 17064109,
+        "nice": 0,
+        "sys": 40494515,
+        "idle": 106482218,
+        "irq": 5686093
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz",
+        "speed": 2496,
+        "user": 21187343,
+        "nice": 0,
+        "sys": 37572390,
+        "idle": 105280625,
+        "irq": 1254609
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz",
+        "speed": 2496,
+        "user": 24444359,
+        "nice": 0,
+        "sys": 35393640,
+        "idle": 104202359,
+        "irq": 412031
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz",
+        "speed": 2496,
+        "user": 24931250,
+        "nice": 0,
+        "sys": 41542609,
+        "idle": 97566500,
+        "irq": 1400484
+      }
+    ],
+    "networkInterfaces": [
+      {
+        "name": "vEthernet (DockerNAT)",
+        "internal": false,
+        "mac": "00:15:5d:4b:3c:08",
+        "address": "fe80::45b0:c178:9a50:7920",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 10
+      },
+      {
+        "name": "vEthernet (DockerNAT)",
+        "internal": false,
+        "mac": "00:15:5d:4b:3c:08",
+        "address": "10.0.75.1",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "以太网 3",
+        "internal": false,
+        "mac": "0a:00:27:00:00:16",
+        "address": "fe80::a551:18c4:9d2e:cf14",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 22
+      },
+      {
+        "name": "以太网 3",
+        "internal": false,
+        "mac": "0a:00:27:00:00:16",
+        "address": "192.168.56.1",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "Loopback Pseudo-Interface 1",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "::1",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Loopback Pseudo-Interface 1",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "127.0.0.1",
+        "netmask": "255.0.0.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "WLAN",
+        "internal": false,
+        "mac": "88:78:73:83:e4:33",
+        "address": "fe80::1978:6a83:91a1:4382",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 15
+      },
+      {
+        "name": "WLAN",
+        "internal": false,
+        "mac": "88:78:73:83:e4:33",
+        "address": "192.168.1.102",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "vEthernet (Default Switch)",
+        "internal": false,
+        "mac": "00:15:5d:09:de:20",
+        "address": "fe80::84c3:33a1:3840:f10f",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 36
+      },
+      {
+        "name": "vEthernet (Default Switch)",
+        "internal": false,
+        "mac": "00:15:5d:09:de:20",
+        "address": "172.17.13.129",
+        "netmask": "255.255.255.240",
+        "family": "IPv4"
+      }
+    ],
+    "host": "Cyoung"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ]
+  },
+  "nativeStack": [
+    {
+      "pc": "0x00007ff613071729",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+10873"
+    },
+    {
+      "pc": "0x00007ff613075b4c",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+28316"
+    },
+    {
+      "pc": "0x00007ff613074b08",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+24152"
+    },
+    {
+      "pc": "0x00007ff61316369b",
+      "symbol": "v8::base::CPU::has_sse+37723"
+    },
+    {
+      "pc": "0x00007ff6139682de",
+      "symbol": "v8::Isolate::ReportExternalAllocationLimitReached+94"
+    },
+    {
+      "pc": "0x00007ff613950321",
+      "symbol": "v8::SharedArrayBuffer::Externalize+833"
+    },
+    {
+      "pc": "0x00007ff61381dbec",
+      "symbol": "v8::internal::Heap::EphemeronKeyWriteBarrierFromCode+1436"
+    },
+    {
+      "pc": "0x00007ff613833c0d",
+      "symbol": "v8::internal::Factory::AllocateRawFixedArray+61"
+    },
+    {
+      "pc": "0x00007ff61383afc4",
+      "symbol": "v8::internal::Factory::NewFixedArrayWithFiller+52"
+    },
+    {
+      "pc": "0x00007ff61383af81",
+      "symbol": "v8::internal::Factory::NewUninitializedFixedArray+65"
+    },
+    {
+      "pc": "0x00007ff61371bdaf",
+      "symbol": "v8::Object::GetIsolate+6767"
+    },
+    {
+      "pc": "0x00007ff6135cf13a",
+      "symbol": "v8::internal::OrderedHashMap::ValueAt+61274"
+    },
+    {
+      "pc": "0x00007ff613d9404d",
+      "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+567949"
+    },
+    {
+      "pc": "0x000001d279f4c6fa",
+      "symbol": ""
+    }
+  ],
+  "javascriptHeap": {
+    "totalMemory": 1057226752,
+    "totalCommittedMemory": 1057226752,
+    "usedMemory": 995611200,
+    "availableMemory": 1201457616,
+    "memoryLimit": 2197815296,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 262144,
+        "committedMemory": 262144,
+        "capacity": 261872,
+        "used": 32296,
+        "available": 229576
+      },
+      "new_space": {
+        "memorySize": 33554432,
+        "committedMemory": 33554432,
+        "capacity": 16759808,
+        "used": 360672,
+        "available": 16399136
+      },
+      "old_space": {
+        "memorySize": 100511744,
+        "committedMemory": 100511744,
+        "capacity": 100351656,
+        "used": 74651936,
+        "available": 25699720
+      },
+      "code_space": {
+        "memorySize": 3047424,
+        "committedMemory": 3047424,
+        "capacity": 2700768,
+        "used": 1967264,
+        "available": 733504
+      },
+      "map_space": {
+        "memorySize": 4460544,
+        "committedMemory": 4460544,
+        "capacity": 4455248,
+        "used": 3407920,
+        "available": 1047328
+      },
+      "large_object_space": {
+        "memorySize": 914186240,
+        "committedMemory": 914186240,
+        "capacity": 914090696,
+        "used": 914090696,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 1204224,
+        "committedMemory": 1204224,
+        "capacity": 1100416,
+        "used": 1100416,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 16759808,
+        "used": 0,
+        "available": 16759808
+      }
+    }
+  },
+  "resourceUsage": {
+    "userCpuSeconds": 40.671,
+    "kernelCpuSeconds": 6.609,
+    "cpuConsumptionPercent": 68.5217,
+    "maxRss": 1695162368,
+    "pageFaults": {
+      "IORequired": 825817,
+      "IONotRequired": 0
+    },
+    "fsActivity": {
+      "reads": 4903,
+      "writes": 184
+    }
+  },
+  "libuv": [
+  ],
+  "environmentVariables": {
+    "=C:": "C:\\",
+    "=D:": "D:\\my study\\UV\\frontend",
+    "ALLUSERSPROFILE": "C:\\ProgramData",
+    "APPDATA": "C:\\Users\\liusiyang\\AppData\\Roaming",
+    "BABEL_ENV": "production",
+    "ChocolateyInstall": "C:\\ProgramData\\chocolatey",
+    "ChocolateyLastPathUpdate": "132194665913170614",
+    "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_206928_AJXXJHVXRFCPNNTH",
+    "CLASSPATH": "D:\\軟件\\sqljdbc_7.2\\enu\\mssql-jdbc-7.2.2.jre8.jar",
+    "COLORTERM": "truecolor",
+    "CommonProgramFiles": "C:\\Program Files\\Common Files",
+    "CommonProgramFiles(x86)": "C:\\Program Files (x86)\\Common Files",
+    "CommonProgramW6432": "C:\\Program Files\\Common Files",
+    "COMPUTERNAME": "CYOUNG",
+    "ComSpec": "C:\\WINDOWS\\system32\\cmd.exe",
+    "DriverData": "C:\\Windows\\System32\\Drivers\\DriverData",
+    "GIT_ASKPASS": "d:\\軟件\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass.sh",
+    "HOMEDRIVE": "C:",
+    "HOMEPATH": "\\Users\\liusiyang",
+    "INIT_CWD": "D:\\my study\\UV\\frontend",
+    "INTEL_DEV_REDIST": "C:\\Program Files (x86)\\Common Files\\Intel\\Shared Libraries\\",
+    "JAVA_HOME": "C:\\Program Files\\Java\\jdk1.8.0_211",
+    "LANG": "zh_CN.UTF-8",
+    "LOCALAPPDATA": "C:\\Users\\liusiyang\\AppData\\Local",
+    "LOGONSERVER": "\\\\CYOUNG",
+    "MAVEN_HOME": "C:\\apache-maven-3.6.3",
+    "MIC_LD_LIBRARY_PATH": "C:\\Program Files (x86)\\Common Files\\Intel\\Shared Libraries\\compiler\\lib\\mic",
+    "MSMPI_BIN": "C:\\Program Files\\Microsoft MPI\\Bin\\",
+    "NODE": "D:\\nodejs\\node.exe",
+    "NODE_ENV": "production",
+    "npm_config_argv": "{\"remain\":[],\"cooked\":[\"run\",\"build\"],\"original\":[\"build\"]}",
+    "npm_config_bin_links": "true",
+    "npm_config_cache": "D:\\nodejs\\node_cache",
+    "npm_config_ignore_optional": "",
+    "npm_config_ignore_scripts": "",
+    "npm_config_init_license": "MIT",
+    "npm_config_init_version": "1.0.0",
+    "npm_config_prefix": "D:\\nodejs\\node_global",
+    "npm_config_registry": "https://registry.yarnpkg.com",
+    "npm_config_save_prefix": "^",
+    "npm_config_strict_ssl": "true",
+    "npm_config_user_agent": "yarn/1.22.5 npm/? node/v12.13.1 win32 x64",
+    "npm_config_version_commit_hooks": "true",
+    "npm_config_version_git_message": "v%s",
+    "npm_config_version_git_sign": "",
+    "npm_config_version_git_tag": "true",
+    "npm_config_version_tag_prefix": "v",
+    "npm_execpath": "D:\\software\\bin\\yarn.js",
+    "npm_lifecycle_event": "build",
+    "npm_lifecycle_script": "vue-cli-service build",
+    "npm_node_execpath": "D:\\nodejs\\node.exe",
+    "npm_package_browserslist_0": "> 1%",
+    "npm_package_browserslist_1": "last 2 versions",
+    "npm_package_config_commitizen_path": "./node_modules/cz-conventional-changelog",
+    "npm_package_dependencies_axios_cache_adapter": "^2.4.1",
+    "npm_package_dependencies_core_js": "^3.6.0",
+    "npm_package_dependencies_filepond": "^4.11.0",
+    "npm_package_dependencies_filepond_plugin_file_validate_size": "^2.2.0",
+    "npm_package_dependencies_filepond_plugin_file_validate_type": "^1.2.4",
+    "npm_package_dependencies_hash_js": "^1.1.7",
+    "npm_package_dependencies_register_service_worker": "^1.6.2",
+    "npm_package_dependencies_uuid": "^3.3.3",
+    "npm_package_dependencies_vue": "^2.6.11",
+    "npm_package_dependencies_vuelidate": "^0.7.4",
+    "npm_package_dependencies_vuetify": "^2.1.15",
+    "npm_package_dependencies_vuetify_google_autocomplete": "^2.0.0-beta.8",
+    "npm_package_dependencies_vuex": "^3.1.2",
+    "npm_package_dependencies_vuex_persistedstate": "^2.7.0",
+    "npm_package_dependencies_vue_analytics": "^5.22.1",
+    "npm_package_dependencies_vue_filepond": "^6.0.2",
+    "npm_package_dependencies_vue_i18n": "^8.0.0",
+    "npm_package_dependencies_vue_recaptcha": "^1.2.0",
+    "npm_package_dependencies_vue_router": "^3.0.3",
+    "npm_package_dependencies__sentry_browser": "^5.15.1",
+    "npm_package_dependencies__sentry_integrations": "^5.15.1",
+    "npm_package_description": "[![Preview the Site](https://img.shields.io/badge/now.sh-Preview%20the%20Site-grey?logo=zeit&labelColor=black)](https://uvillage.dev/)",
+    "npm_package_devDependencies_axios": "^0.19.0",
+    "npm_package_devDependencies_axios_extensions": "^3.0.6",
+    "npm_package_devDependencies_axios_mock_adapter": "^1.17.0",
+    "npm_package_devDependencies_babel_eslint": "^10.0.1",
+    "npm_package_devDependencies_cz_conventional_changelog": "3.0.2",
+    "npm_package_devDependencies_eslint": "^5.16.0",
+    "npm_package_devDependencies_eslint_plugin_vue": "^5.0.0",
+    "npm_package_devDependencies_git_describe": "^4.0.4",
+    "npm_package_devDependencies_jwt_decode": "^2.2.0",
+    "npm_package_devDependencies_sass": "^1.17.4",
+    "npm_package_devDependencies_sass_loader": "^7.3.1",
+    "npm_package_devDependencies_vuetify_loader": "^1.4.3",
+    "npm_package_devDependencies_vue_cli_plugin_i18n": "^0.6.0",
+    "npm_package_devDependencies_vue_cli_plugin_vuetify": "^2.0.2",
+    "npm_package_devDependencies_vue_template_compiler": "^2.6.10",
+    "npm_package_devDependencies_webpack": "^4.42.0",
+    "npm_package_devDependencies__kazupon_vue_i18n_loader": "^0.3.0",
+    "npm_package_devDependencies__mdi_font": "^4.5.95",
+    "npm_package_devDependencies__vue_cli_plugin_babel": "^4.1.1",
+    "npm_package_devDependencies__vue_cli_plugin_eslint": "^4.1.1",
+    "npm_package_devDependencies__vue_cli_service": "^4.1.1",
+    "npm_package_eslintConfig_env_node": "true",
+    "npm_package_eslintConfig_extends_0": "plugin:vue/recommended",
+    "npm_package_eslintConfig_extends_1": "eslint:recommended",
+    "npm_package_eslintConfig_globals_GIT_VERSION": "true",
+    "npm_package_eslintConfig_parserOptions_parser": "babel-eslint",
+    "npm_package_eslintConfig_root": "true",
+    "npm_package_eslintConfig_rules_camelcase_0": "error",
+    "npm_package_eslintConfig_rules_comma_dangle_0": "error",
+    "npm_package_eslintConfig_rules_comma_dangle_1_arrays": "always-multiline",
+    "npm_package_eslintConfig_rules_comma_dangle_1_exports": "never",
+    "npm_package_eslintConfig_rules_comma_dangle_1_functions": "never",
+    "npm_package_eslintConfig_rules_comma_dangle_1_imports": "never",
+    "npm_package_eslintConfig_rules_comma_dangle_1_objects": "always-multiline",
+    "npm_package_eslintConfig_rules_no_console": "off",
+    "npm_package_eslintConfig_rules_semi_0": "error",
+    "npm_package_eslintConfig_rules_semi_1": "always",
+    "npm_package_eslintConfig_rules_semi_2_omitLastInOneLineBlock": "true",
+    "npm_package_name": "uv-universal-frontend",
+    "npm_package_private": "true",
+    "npm_package_readmeFilename": "README.md",
+    "npm_package_scripts_build": "vue-cli-service build",
+    "npm_package_scripts_build_single": "vue-cli-service build",
+    "npm_package_scripts_deploy": "yarn build && yarn upload",
+    "npm_package_scripts_i18n_report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
+    "npm_package_scripts_lint": "vue-cli-service lint",
+    "npm_package_scripts_serve": "vue-cli-service serve",
+    "npm_package_scripts_ui": "vue ui",
+    "npm_package_scripts_upload": "tar cvf dist.tar dist/ && scp dist.tar uv2020:/tmp/dist.tar && ssh -t uv2020 \"cd /srv/www/universal-village/ && sudo mv /tmp/dist.tar . && sudo rm -rf dist/ && sudo tar xvf dist.tar\"",
+    "npm_package_version": "0.1.0",
+    "NUMBER_OF_PROCESSORS": "4",
+    "OneDrive": "C:\\Users\\liusiyang\\OneDrive",
+    "OneDriveConsumer": "C:\\Users\\liusiyang\\OneDrive",
+    "OnlineServices": "Online Services",
+    "ORIGINAL_XDG_CURRENT_DESKTOP": "undefined",
+    "OS": "Windows_NT",
+    "Path": "C:\\Users\\LIUSIY~1\\AppData\\Local\\Temp\\yarn--1599922185175-0.5608588350063941;D:\\my study\\UV\\frontend\\node_modules\\.bin;C:\\Users\\liusiyang\\AppData\\Local\\Yarn\\Data\\link\\node_modules\\.bin;D:\\nodejs\\node_global\\bin;D:\\libexec\\lib\\node_modules\\npm\\bin\\node-gyp-bin;D:\\lib\\node_modules\\npm\\bin\\node-gyp-bin;D:\\nodejs\\node_modules\\npm\\bin\\node-gyp-bin;C:\\Program Files\\Docker\\Docker\\Resources\\bin;C:\\python\\;C:\\python\\Scripts;C:\\Program Files\\Microsoft MPI\\Bin\\;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\Common Files\\Intel\\Shared Libraries\\redist\\intel64\\compiler;C:\\Program Files\\Intel\\iCLS Client\\;C:\\windows\\system32;C:\\windows;C:\\windows\\System32\\Wbem;C:\\windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Program Files\\PuTTY\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\140\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\140\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\140\\DTS\\Binn\\;C:\\Program Files\\Java\\jdk1.8.0_211\\bin;C:\\Program Files\\Java\\jdk1.8.0_211\\jre\\bin;C:\\apache-maven-3.6.3\\bin;C:\\Program Files (x86)\\Microsoft SQL Server\\150\\DTS\\Binn\\;D:\\軟件\\LLVM\\bin;D:\\nodejs;C:\\ProgramData\\chocolatey\\bin;D:\\Git\\cmd;D:\\nodejs\\node_global;D:\\學習\\COMP 4057\\mysql-8.0.19-winx64\\bin;D:\\software\\bin\\;C:\\apache-maven-3.6.3\\bin;C:\\python\\Scripts\\;C:\\python\\;C:\\Users\\liusiyang\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Program Files\\Java\\jdk1.8.0_131\\bin;;D:\\軟件\\pycharm\\PyCharm Community Edition 2019.1.2\\bin;;D:\\軟件\\Microsoft VS Code\\bin;C:\\Users\\liusiyang\\AppData\\Roaming\\npm;C:\\Users\\liusiyang\\AppData\\Local\\Yarn\\bin",
+    "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JSE;.WSF;.WSH;.MSC;.CPL",
+    "platformcode": "KV",
+    "PROCESSOR_ARCHITECTURE": "AMD64",
+    "PROCESSOR_IDENTIFIER": "Intel64 Family 6 Model 158 Stepping 9, GenuineIntel",
+    "PROCESSOR_LEVEL": "6",
+    "PROCESSOR_REVISION": "9e09",
+    "ProgramData": "C:\\ProgramData",
+    "ProgramFiles": "C:\\Program Files",
+    "ProgramFiles(x86)": "C:\\Program Files (x86)",
+    "ProgramW6432": "C:\\Program Files",
+    "PROMPT": "$P$G",
+    "PSModulePath": "C:\\Users\\liusiyang\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules;C:\\Program Files (x86)\\Microsoft SQL Server\\140\\Tools\\PowerShell\\Modules\\",
+    "PUBLIC": "C:\\Users\\Public",
+    "PyCharm Community Edition": "D:\\軟件\\pycharm\\PyCharm Community Edition 2019.1.2\\bin;",
+    "RegionCode": "APJ",
+    "SESSIONNAME": "Console",
+    "SystemDrive": "C:",
+    "SystemRoot": "C:\\WINDOWS",
+    "TEMP": "C:\\Users\\LIUSIY~1\\AppData\\Local\\Temp",
+    "TERM_PROGRAM": "vscode",
+    "TERM_PROGRAM_VERSION": "1.49.0",
+    "TMP": "C:\\Users\\LIUSIY~1\\AppData\\Local\\Temp",
+    "USERDOMAIN": "CYOUNG",
+    "USERDOMAIN_ROAMINGPROFILE": "CYOUNG",
+    "USERNAME": "liusiyang",
+    "USERPROFILE": "C:\\Users\\liusiyang",
+    "VBOX_MSI_INSTALL_PATH": "D:\\software\\virtualbox\\",
+    "VS140COMNTOOLS": "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\",
+    "VSCODE_GIT_ASKPASS_MAIN": "d:\\軟件\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass-main.js",
+    "VSCODE_GIT_ASKPASS_NODE": "D:\\軟件\\Microsoft VS Code\\Code.exe",
+    "VSCODE_GIT_IPC_HANDLE": "\\\\.\\pipe\\vscode-git-e478f0a75d-sock",
+    "VUE_APP_I18N_FALLBACK_LOCALE": "en",
+    "VUE_APP_I18N_LOCALE": "en",
+    "VUE_CLI_BUILD_TARGET": "app",
+    "VUE_CLI_ENTRY_FILES": "[\"D:\\\\my study\\\\UV\\\\frontend\\\\src\\\\main.js\"]",
+    "VUE_CLI_TRANSPILE_BABEL_RUNTIME": "true",
+    "windir": "C:\\WINDOWS",
+    "WXDRIVE_START_ARGS": "--wxdrive-setting=0 --disable-gpu --disable-software-rasterizer --enable-features=NetworkServiceInProcess",
+    "YARN_WRAP_OUTPUT": "false"
+  },
+  "sharedObjects": [
+    "D:\\nodejs\\node.exe",
+    "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+    "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+    "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+    "C:\\WINDOWS\\System32\\WS2_32.dll",
+    "C:\\WINDOWS\\System32\\RPCRT4.dll",
+    "C:\\WINDOWS\\System32\\ADVAPI32.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dbghelp.dll",
+    "C:\\WINDOWS\\System32\\msvcrt.dll",
+    "C:\\WINDOWS\\System32\\ucrtbase.dll",
+    "C:\\WINDOWS\\System32\\sechost.dll",
+    "C:\\WINDOWS\\System32\\USER32.dll",
+    "C:\\WINDOWS\\System32\\win32u.dll",
+    "C:\\WINDOWS\\System32\\GDI32.dll",
+    "C:\\WINDOWS\\System32\\gdi32full.dll",
+    "C:\\WINDOWS\\System32\\msvcp_win.dll",
+    "C:\\WINDOWS\\System32\\PSAPI.DLL",
+    "C:\\WINDOWS\\System32\\CRYPT32.dll",
+    "C:\\WINDOWS\\System32\\MSASN1.dll",
+    "C:\\WINDOWS\\System32\\bcrypt.dll",
+    "C:\\WINDOWS\\SYSTEM32\\USERENV.dll",
+    "C:\\WINDOWS\\System32\\profapi.dll",
+    "C:\\WINDOWS\\SYSTEM32\\IPHLPAPI.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\WINMM.dll",
+    "C:\\WINDOWS\\SYSTEM32\\WINMMBASE.dll",
+    "C:\\WINDOWS\\System32\\cfgmgr32.dll",
+    "C:\\WINDOWS\\System32\\bcryptPrimitives.dll",
+    "C:\\WINDOWS\\System32\\IMM32.DLL",
+    "C:\\WINDOWS\\System32\\powrprof.dll",
+    "C:\\WINDOWS\\System32\\UMPDC.dll",
+    "C:\\WINDOWS\\SYSTEM32\\CRYPTBASE.DLL",
+    "C:\\WINDOWS\\system32\\uxtheme.dll",
+    "C:\\WINDOWS\\System32\\combase.dll",
+    "C:\\WINDOWS\\system32\\mswsock.dll",
+    "C:\\WINDOWS\\System32\\kernel.appcore.dll",
+    "C:\\WINDOWS\\system32\\napinsp.dll",
+    "C:\\WINDOWS\\system32\\pnrpnsp.dll",
+    "C:\\WINDOWS\\SYSTEM32\\DNSAPI.dll",
+    "C:\\WINDOWS\\System32\\NSI.dll",
+    "C:\\WINDOWS\\System32\\winrnr.dll",
+    "C:\\WINDOWS\\system32\\NLAapi.dll",
+    "C:\\WINDOWS\\system32\\wshbth.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc6.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc.DLL"
+  ]
+}
