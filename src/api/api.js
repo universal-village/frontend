@@ -95,7 +95,8 @@ export default {
       formData.append('userId',userId);
       return service({
         url:`/papers/${paperId}/assign`,
-        data:formData,
+        data: formData,
+        method: 'post',
       });
     },
   },
