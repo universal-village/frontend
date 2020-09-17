@@ -96,6 +96,20 @@ export default {
           userId,
         });
     },
+    getReviews (reviewerId) {
+      return service({
+        url: `/reviews?reviewerId=${reviewerId}`,
+        timeout: 86400000,
+        method: 'get',
+      });
+    },
+    getPapersAssigned () {
+      return service({
+        url: "/reviews/papers",
+        timeout: 86400000,
+        method: 'get',
+      });
+    },
   },
   users: {
     checkNames (names) {

@@ -136,34 +136,56 @@
                 v-bind="$attrs"
               >
                 <template v-slot:actions>
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on }">
-                      <v-btn
-                        icon
-                        style="padding: 0;"
-                        color="blue"
-                        v-on="on"
-                        @click="assignReviewerToPaper(item)"
-                      >
-                        <v-icon>mdi-account-plus</v-icon>
-                      </v-btn>
-                    </template>
-                    Assign Reviewer to Paper
-                  </v-tooltip>
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on }">
-                      <v-btn
-                        icon
-                        style="padding: 0;"
-                        color="orange"
-                        v-on="on"
-                        @click="movePaper(item)"
-                      >
-                        <v-icon>mdi-send</v-icon>
-                      </v-btn>
-                    </template>
-                    Move Paper to other Categories
-                  </v-tooltip>
+                  <div
+                    v-if="viewBy=='chair'"
+                  >
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          icon
+                          style="padding: 0;"
+                          color="blue"
+                          v-on="on"
+                          @click="assignReviewerToPaper(item)"
+                        >
+                          <v-icon>mdi-account-plus</v-icon>
+                        </v-btn>
+                      </template>
+                      Assign Reviewer to Paper
+                    </v-tooltip>
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          icon
+                          style="padding: 0;"
+                          color="orange"
+                          v-on="on"
+                          @click="movePaper(item)"
+                        >
+                          <v-icon>mdi-send</v-icon>
+                        </v-btn>
+                      </template>
+                      Move Paper to other Categories
+                    </v-tooltip>
+                  </div>
+                  <div
+                    v-else
+                  >
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          icon
+                          style="padding: 0;"
+                          color="blue"
+                          v-on="on"
+                          @click="selectPaper(item)"
+                        >
+                          <v-icon>mdi-pencil-plus</v-icon>
+                        </v-btn>
+                      </template>
+                      Draft Review
+                    </v-tooltip>
+                  </div>
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on }">
                       <v-btn
@@ -216,6 +238,10 @@
         type: Boolean,
         required: true,
       },
+      viewBy: {
+        type: String,
+        required: true,
+      },
     },
     data() {
       return {
@@ -246,21 +272,24 @@
       },
       doAssign(item, email) {
         this.dialog.pending = true;
-        api.papers.assign(item.paperId, item.categoryId, email)
+        api.papers.assign(item.id, item.categoryId, email, -1)
           .then(() => {
-            snackbar.success(`Successfully submitted Paper#${id} to review.`);
+            snackbar.success(`Successfully submitted Paper#${item.paperId} to review.`);
 
             this.$emit("change");
             this.close();
           })
           .catch((err) => {
             console.error(err);
-            snackbar.error(`Failed to submit Paper#${id} to review: ${err.errorMessage}`);
+            snackbar.error(`Failed to submit Paper#${item.paperId} to review: ${err.errorMessage}`);
           })
           .finally(() => this.dialog.pending = false);
       },
       download(item) {
         window.open(item.link);
+      },
+      selectPaper(item) {
+        this.$emit('selectPaper', item);
       },
       doDelete() {
         snackbar.info("Currently we do not support deleting paper from the web interface. If you need to do so, please manually contact us!");
