@@ -11,12 +11,19 @@
         <h1 class="display-1 pa-3">
           Review Paper
         </h1>
-        <h2 class="title px-3 mb-4">
-          review p
-        </h2>
+        <v-alert
+          border="bottom"
+          colored-border
+          type="warning"
+          elevation="2"
+          v-if="currentPaper.paperId == -1"
+        >
+          You don't have paper selected right now. To draft review, please choose a paper from the assigned papers list below.
+        </v-alert>
         <ReviewEditor
           :paper="currentPaper"
-          :review="currentView"
+          :review="currentReview"
+          :readOnly="paperSelected"
         >
         </ReviewEditor>
       </v-col>
@@ -55,18 +62,31 @@
       return {
         papers: [],
         reviews: [],
-        currentPaper: {},
+        currentPaper: {
+          paperId: -1,
+        },
         currentReview: {},
         isBusy: false,
       };
     },
-    created () {
+    created() {
       this.update();
+      this.paper = {
+        title: "",
+      };
+      this.review = {
+      };
+    },
+    computed: {
+      paperSelected ()
+      {
+        return this.currentPaper.paperId === -1;
+      },
     },
     methods: {
       setCurrentPaper (value) {
         this.currentPaper = value;
-        console.log(this.currentPaper);
+        this.currentReview = this.reviews.find(r => r.paperId == value.id);
       },
       update () {
         this.isBusy = true;

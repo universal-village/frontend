@@ -110,6 +110,15 @@ export default {
         method: 'get',
       });
     },
+    updatePaperReview (review)
+    {
+      return service({
+        url: "/reviews",
+        timeout: 86400000,
+        method: 'put',
+        data: review,
+      });
+    },
   },
   users: {
     checkNames (names) {
