@@ -1,22 +1,35 @@
 <template>
   <v-card
-    class="mx-auto"
     max-width="full-width"
+    style="overflow: hidden; border-top: 3px solid #4EA95E; padding: 3px;"
     outlined
     elevation="2"
   >
     <v-list-item three-line>
       <v-list-item-content>
-        <div class="headline mb-4">Review Paper {{paper.title}}</div>
-        <v-list-item-title class="overline mb-1">Comment</v-list-item-title>
+        <div
+          class="headline mb-4"
+        >
+          Review Paper {{paper.title}}
+        </div>
+        <v-list-item-title
+          class="overline mb-1"
+        >
+          Comment
+        </v-list-item-title>
         <v-textarea
           name="input-7-1"
           label="Comment"
           v-model="review.comment"
           v-bind:hint="``"
+          rows="8"
           :disabled="readOnly"
         ></v-textarea>
-        <v-list-item-title class="overline mb-1">Scores</v-list-item-title>
+        <v-list-item-title
+          class="overline mb-1"
+        >
+          Scores
+        </v-list-item-title>
         <div>
           <v-row align="center">
             <v-col

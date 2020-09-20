@@ -103,6 +103,13 @@ export default {
         method: 'get',
       });
     },
+    getReviewsByPaperId (paperId) {
+      return service({
+        url: `/reviews?paperId=${paperId}`,
+        timeout: 86400000,
+        method: 'get',
+      });
+    },
     getPapersAssigned () {
       return service({
         url: "/reviews/papers",
@@ -117,6 +124,23 @@ export default {
         timeout: 86400000,
         method: 'put',
         data: review,
+      });
+    },
+    getPaperDecision (paperId)
+    {
+      return service({
+        url: `/papers/${paperId}/decision`,
+        timeout: 86400000,
+        method: 'get',
+      });
+    },
+    savePaperDecision (paperId, decision)
+    {
+      return service({
+        url: `/papers/${paperId}/decision`,
+        timeout: 86400000,
+        method: 'post',
+        data: decision,
       });
     },
   },
