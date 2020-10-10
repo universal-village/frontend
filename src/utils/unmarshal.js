@@ -11,12 +11,12 @@ import jwtDecode from "jwt-decode";
 
 export default {
   paper (args) {
-    const doubleEncodingKeys = "title authors keywords paperAbstract".split(" ");
-    for (let key of doubleEncodingKeys) {
-      if (key in args) {
-        args[key] = decodeURIComponent(decodeURIComponent(args[key]));
-      }
-    }
+    // const doubleEncodingKeys = "title authors keywords paperAbstract".split(" ");
+    // for (let key of doubleEncodingKeys) {
+    //  if (key in args) {
+    //    args[key] = decodeURIComponent(decodeURIComponent(args[key]));
+    //  }
+    // }
     return new Paper(args);
   },
   jwt (data) {

@@ -45,7 +45,7 @@
         <CategoryChairPaperList
           :papers="papers"
           :loading="isBusy"
-
+          viewBy="chair"
           preview-only
           @change="update"
         />

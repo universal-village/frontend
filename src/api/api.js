@@ -88,6 +88,61 @@ export default {
           paperId,
         });
     },
+    assign (paperId, categoryId, userEmail, userId) {
+      return service
+        .post(`/papers/${paperId}/assign`, {
+          categoryId,
+          userEmail,
+          userId,
+        });
+    },
+    getReviews (reviewerId) {
+      return service({
+        url: `/reviews?reviewerId=${reviewerId}`,
+        timeout: 86400000,
+        method: 'get',
+      });
+    },
+    getReviewsByPaperId (paperId) {
+      return service({
+        url: `/reviews?paperId=${paperId}`,
+        timeout: 86400000,
+        method: 'get',
+      });
+    },
+    getPapersAssigned () {
+      return service({
+        url: "/reviews/papers",
+        timeout: 86400000,
+        method: 'get',
+      });
+    },
+    updatePaperReview (review)
+    {
+      return service({
+        url: "/reviews",
+        timeout: 86400000,
+        method: 'put',
+        data: review,
+      });
+    },
+    getPaperDecision (paperId)
+    {
+      return service({
+        url: `/papers/${paperId}/decision`,
+        timeout: 86400000,
+        method: 'get',
+      });
+    },
+    savePaperDecision (paperId, decision)
+    {
+      return service({
+        url: `/papers/${paperId}/decision`,
+        timeout: 86400000,
+        method: 'post',
+        data: decision,
+      });
+    },
   },
   users: {
     checkNames (names) {
